@@ -18,6 +18,7 @@ struct Participant{
     string gender;   
     string country;
     uint256 yearOfBirth;
+    uint256 totalNumberOfSurveysTaken;
     bool isResearcher;
     bool isBlank;
 }
@@ -50,7 +51,7 @@ struct Answer {
 struct Earning {
     uint256 id;
     uint256 surveyId;
-    uint256 participantWalletAddress;
+    address participantWalletAddress;
     uint256 amountPaidOutInWei;
     bool isBlank;
 }
