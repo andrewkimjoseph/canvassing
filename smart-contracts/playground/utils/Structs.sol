@@ -26,9 +26,10 @@ struct Participant{
 struct Survey {
     uint256 id;
     address creatingResearcherWalletAddress;
+    string topic;
     uint256 numberOfQuestions;
     uint256 targetNumberOfParticipants;
-    uint256 potentialEarningsPerParticipantInWei;
+    uint256 amountFundedInWei;
     bool isBlank;
 }
 
@@ -43,7 +44,7 @@ struct Answer {
     uint256 id;
     uint256 questionId;
     uint256 surveyId;
-    uint256 participantWalletAddress;
+    address participantWalletAddress;
     bool value;
     bool isBlank;
 }
@@ -51,7 +52,7 @@ struct Answer {
 struct Earning {
     uint256 id;
     uint256 surveyId;
-    address participantWalletAddress;
+    address walletAddress;
     uint256 amountPaidOutInWei;
     bool isBlank;
 }
@@ -59,7 +60,7 @@ struct Earning {
 struct Funding {
     uint256 id;
     uint256 surveyId;
-    uint256 creatingResearcherWalletAddress;
+    address creatingResearcherWalletAddress;
     uint256 amountFundedInWei;
     bool isBlank;
 }
