@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"playground/Canvassing.sol": "Canvassing"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"playground/Canvassing.sol": {
+			"keccak256": "0xcaba17baf8b27e8fa1b119994f4269b1ae0dddbba53d5400efc815e5dad807db",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d16f988ff0bfbdf7ceb7afd6336c1eb14c9f07eb0bc8b9377d122a2806f03fc1",
+				"dweb:/ipfs/QmekiMaEb87hSWwtaVNCkv265krCdAuseLzxNpjrE7XDVQ"
+			]
+		}
+	},
+	"version": 1
+}
