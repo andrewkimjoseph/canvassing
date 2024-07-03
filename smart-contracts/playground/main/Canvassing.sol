@@ -53,6 +53,8 @@ contract Canvassing {
     uint256 currentAnswerId;
     uint256 currentEarningId;
     uint256 currentFundingId;
+
+    
     // CUSD
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
 
