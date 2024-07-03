@@ -1,0 +1,53 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"smart-contracts/playground/main/Canvassing.sol": "Canvassing"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"smart-contracts/playground/main/Canvassing.sol": {
+			"keccak256": "0xae438211babcb1412afa5a54e101905dfb76afaa6284547054db21269485bf69",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1c56896c80f10085b44180f825e7ac717b09dbbad4fafc28effcf1acb93a81be",
+				"dweb:/ipfs/QmdYm9Q1Unz8A7Ld6tnFY7udGgnECBz5SyGFTSrv1H2qJN"
+			]
+		},
+		"smart-contracts/playground/utils/Structs.sol": {
+			"keccak256": "0x8d2d65e1e80818b879f37a32b4cad7d543d151b0570a4acefc95ada186c92057",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2464459db8038fc6567c5ad69145d91a09bdfce957766a71064b3b7387537d94",
+				"dweb:/ipfs/QmQmK8SMujk5rqMRJJ1PgbdW1meNpGv6TrA7h2HzEbPLJA"
+			]
+		}
+	},
+	"version": 1
+}

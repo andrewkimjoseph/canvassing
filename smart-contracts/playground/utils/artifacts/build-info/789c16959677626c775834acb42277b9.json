@@ -1,12 +1,12 @@
 {
-	"id": "ff36fd7ca0eb9c42ece333b6303cf296",
+	"id": "789c16959677626c775834acb42277b9",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.19",
 	"solcLongVersion": "0.8.19+commit.7dd6d404",
 	"input": {
 		"language": "Solidity",
 		"sources": {
-			"playground/Structs.sol": {
+			"smart-contracts/playground/utils/Structs.sol": {
 				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.8.19;\n\nstruct Researcher {\n    uint256 id;\n    address walletAddress;\n    string industry;\n    uint256 yearOfIncorporation;\n    bool isParticipant;\n    bool isVerified;\n    bool isBlank;\n}\n\nstruct Participant{\n    uint256 id;\n    address walletAddress;\n    string gender;   \n    string country;\n    uint256 yearOfBirth;\n    bool isResearcher;\n    bool isBlank;\n}\n\nstruct Survey {\n    uint256 id;\n    address creatingResearcherWalletAddress;\n    uint256 numberOfQuestions;\n    uint256 targetNumberOfParticipants;\n    uint256 potentialEarningsPerParticipantInWei;\n    bool isBlank;\n}\n\nstruct Question {\n    uint256 id;\n    uint256 surveyId;\n    string sentence;\n    bool isBlank;\n}\n\nstruct Answer {\n    uint256 id;\n    uint256 questionId;\n    uint256 surveyId;\n    uint256 participantWalletAddress;\n    bool value;\n    bool isBlank;\n}\n\nstruct Earning {\n    uint256 id;\n    uint256 surveyId;\n    uint256 participantWalletAddress;\n    uint256 amountPaidOutInWei;\n    bool isBlank;\n}\n\nstruct Funding {\n    uint256 id;\n    uint256 surveyId;\n    uint256 creatingResearcherWalletAddress;\n    uint256 amountFundedInWei;\n    bool isBlank;\n}"
 			}
 		},
@@ -40,9 +40,9 @@
 	},
 	"output": {
 		"sources": {
-			"playground/Structs.sol": {
+			"smart-contracts/playground/utils/Structs.sol": {
 				"ast": {
-					"absolutePath": "playground/Structs.sol",
+					"absolutePath": "smart-contracts/playground/utils/Structs.sol",
 					"exportedSymbols": {
 						"Answer": [
 							66
