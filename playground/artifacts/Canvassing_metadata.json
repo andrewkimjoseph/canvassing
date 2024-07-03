@@ -33,11 +33,11 @@
 	},
 	"sources": {
 		"playground/Canvassing.sol": {
-			"keccak256": "0xacb8953a74c18eda6ebd37c8d5175e509d7a1fb2ea53174bf4764e1e059cbd0f",
+			"keccak256": "0xcaba17baf8b27e8fa1b119994f4269b1ae0dddbba53d5400efc815e5dad807db",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://239913b72041e8244c1c2386407bd7d7ed0b311a2a0f7b626fc29a4f0c43768e",
-				"dweb:/ipfs/QmU9wgpt9VqowDaoPbXKZLpzj7QCdFytH9wvuJCys8CWfh"
+				"bzz-raw://d16f988ff0bfbdf7ceb7afd6336c1eb14c9f07eb0bc8b9377d122a2806f03fc1",
+				"dweb:/ipfs/QmekiMaEb87hSWwtaVNCkv265krCdAuseLzxNpjrE7XDVQ"
 			]
 		}
 	},
