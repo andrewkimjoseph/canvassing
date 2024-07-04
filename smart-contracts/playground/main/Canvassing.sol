@@ -6,46 +6,46 @@ import {Researcher, Participant, Survey, Question, Answer, Earning, Funding} fro
 import {ERC20} from "../utils/Interfaces.sol";
 
 contract Canvassing {
-    // Metamask - The Old Lad
+    //  Metamask - The Old Lad
     address canvassingWalletAddress =
         0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93;
 
-    // address - {researcherWalletAddress}
+    //  address - {researcherWalletAddress}
     mapping(address => Researcher) public allResearchers;
 
-    // address - {participantWalletAddress}
+    //  address - {participantWalletAddress}
     mapping(address => Participant) public allParticipants;
     Survey[] public allSurveys;
 
-    // uint256 - {surveyId}
+    //  uint256 - {surveyId}
     mapping(uint256 => Question[]) public allQuestions;
 
-    // uint256 - {surveyId}
+    //  uint256 - {surveyId}
     mapping(uint256 => Answer[]) public allAnswers;
 
-    // uint256 - {surveyId}
+    //  uint256 - {surveyId}
     mapping(uint256 => mapping(address => bool))
         public participationStatusForSurvey;
 
-    // uint256 - {surveyId}, address - {participantWalletAddress}
+    //  uint256 - {surveyId}, address - {participantWalletAddress}
     mapping(uint256 => mapping(address => bool))
         public payoutStatusOfParticipantForSurvey;
 
-    // address - {creatingResearcherWalletAddress}
+    //  address - {creatingResearcherWalletAddress}
     mapping(address => uint256) public totalNumberOfSurveysCreatedByResearchers;
 
-    // address - {creatingResearcherWalletAddress}
+    //  address - {creatingResearcherWalletAddress}
 
     mapping(address => uint256) public totalAmountFundedByResearchersInWei;
 
-    // uint256 - {surveyId}
+    //  uint256 - {surveyId}
     mapping(uint256 => Participant[]) public participantsOfSurvey;
 
     Funding[] public allFundings;
 
     Earning[] public allEarnings;
 
-    // GLOBALS
+    //  GLOBALS
     uint256 currentResearcherId;
     uint256 currentParticipantId;
     uint256 currentSurveyId;
@@ -54,7 +54,7 @@ contract Canvassing {
     uint256 currentEarningId;
     uint256 currentFundingId;
 
-    // CUSD
+    //  CUSD
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
     uint256 cUSDDecimalPlaces = 10**(cUSD.decimals());
 
@@ -63,7 +63,10 @@ contract Canvassing {
         view
         returns (bool)
     {
-        return allParticipants[_walletAddress].isBlank ? false : true;
+        return
+            allParticipants[_walletAddress].walletAddress == _walletAddress
+                ? true
+                : false;
     }
 
     function getParticipantByWalletAddress(address _walletAddress)
@@ -89,9 +92,10 @@ contract Canvassing {
         newParticipant.gender = _gender;
         newParticipant.country = _country;
         newParticipant.yearOfBirth = _yearOfBirth;
-        newParticipant.totalNumberOfSurveysTaken = 0;
-        newParticipant.isResearcher = false;
-        newParticipant.isBlank = false;
+
+        // Check if {_walletAddress} is a {Researcher}
+        newParticipant.isResearcher = checkIfResearcherExists(_walletAddress) ? true : false;
+
 
         allParticipants[_walletAddress] = newParticipant;
 
@@ -149,7 +153,7 @@ contract Canvassing {
         view
         returns (Survey[] memory)
     {
-        // 1. Get the particular {Earning[]} made by the {Participant} for taking the {Survey}
+        //  Get the particular {Earning[]} made by the {Participant} for taking the {Survey}
         Earning[]
             memory allEarningsMadeByParticipant = getAllEarningsMadeByParticipant(
                 _walletAddress
@@ -160,7 +164,7 @@ contract Canvassing {
         );
         uint256 surveyIndex = 0;
 
-        // 2. Get the {surveyId} in the {Earning} and use them to get the particular {Survey}
+        //  Get the {surveyId} in the {Earning} and use them to get the particular {Survey}
 
         for (
             uint256 earningId = 0;
@@ -267,11 +271,11 @@ contract Canvassing {
     ) public view returns (uint256) {
         uint256 potentialFundingOfAnySurveyInWei = 0;
 
-        // Number of {Question}s
-        // 1 question == 1 cUSD Ether or 1000000000000000000 cUSD Wei (18 d.p.)
+        //  Number of {Question}s
+        //  1 question == 1 cUSD Ether or 1000000000000000000 cUSD Wei (18 d.p.)
         potentialFundingOfAnySurveyInWei += (_numberOfQuestions *
             cUSDDecimalPlaces);
-        // Target Number of {Participant}
+        //  Target Number of {Participant}
         if (_targetNumberOfParticipants == 5) {
             potentialFundingOfAnySurveyInWei += (2 * cUSDDecimalPlaces);
         }
@@ -332,7 +336,7 @@ contract Canvassing {
 
         uint256 numberOfExpectedAnswers = currentSurvey.numberOfQuestions;
 
-        // 1. Create {Answer}s of {Question}s of {Survey}
+        //  Create {Answer}s of {Question}s of {Survey}
         for (
             uint256 answerId = 0;
             answerId < numberOfExpectedAnswers;
@@ -349,20 +353,20 @@ contract Canvassing {
             currentAnswerId++;
         }
 
-        // Update the participation status of {Participant} in {Survey}
+        //  Update the participation status of {Participant} in {Survey}
         participationStatusForSurvey[_surveyId][
             _participantWalletAddress
         ] = true;
 
-        // Add {Participant} to the list of {Participant}s of {Survey}
+        //  Add {Participant} to the list of {Participant}s of {Survey}
         participantsOfSurvey[_surveyId].push(
             getParticipantByWalletAddress(_participantWalletAddress)
         );
 
-        // Update the {Participant.totalNumberOfSurveysTaken} by incrementing it by 1
+        //  Update the {Participant.totalNumberOfSurveysTaken} by incrementing it by 1
         currentParticipant.totalNumberOfSurveysTaken += 1;
 
-        // Update the {Participant}
+        //  Update the {Participant}
         allParticipants[_participantWalletAddress] = currentParticipant;
     }
 
@@ -372,7 +376,7 @@ contract Canvassing {
     ) public {
         Survey memory currentSurvey = allSurveys[_surveyId];
 
-        // Make payout to {Participant}
+        //  Make payout to {Participant}
         uint256 amountToBePaidOutToParticipantInWei = getAmountOfEarningPerParticipantForSurveyInWei(
                 _surveyId
             );
@@ -382,7 +386,7 @@ contract Canvassing {
             amountToBePaidOutToParticipantInWei
         );
 
-        // Make payout to {canvassingWalletAddress} - owner
+        //  Make payout to {canvassingWalletAddress} - owner
         uint256 amountToBePaidOutToCanvassingInWei = getAmountOfEarningForCanvassingForSurveyPerParticipantInWei(
                 _surveyId,
                 currentSurvey.targetNumberOfParticipants
@@ -393,7 +397,7 @@ contract Canvassing {
             amountToBePaidOutToCanvassingInWei
         );
 
-        // Create new {Earning} for {Participant}
+        //  Create new {Earning} for {Participant}
         Earning memory newParticipantEarning;
         newParticipantEarning.id = currentEarningId;
         newParticipantEarning.surveyId = _surveyId;
@@ -401,21 +405,19 @@ contract Canvassing {
             .recipientWalletAddress = _participantWalletAddress;
         newParticipantEarning
             .amountPaidOutInWei = amountToBePaidOutToParticipantInWei;
-        newParticipantEarning.isBlank = false;
         allEarnings.push(newParticipantEarning);
         currentEarningId++;
         payoutStatusOfParticipantForSurvey[_surveyId][
             _participantWalletAddress
         ] = true;
 
-        // Create new {Earning} for {canvassingWalletAddress}
+        //  Create new {Earning} for {canvassingWalletAddress}
         Earning memory newCanvassingEarning;
         newCanvassingEarning.id = currentEarningId;
         newCanvassingEarning.surveyId = _surveyId;
         newCanvassingEarning.recipientWalletAddress = canvassingWalletAddress;
         newCanvassingEarning
             .amountPaidOutInWei = amountToBePaidOutToCanvassingInWei;
-        newCanvassingEarning.isBlank = false;
         allEarnings.push(newCanvassingEarning);
         currentEarningId++;
     }
@@ -425,7 +427,10 @@ contract Canvassing {
         view
         returns (bool)
     {
-        return allResearchers[_walletAddress].isBlank ? false : true;
+        return
+            allResearchers[_walletAddress].walletAddress == _walletAddress
+                ? true
+                : false;
     }
 
     function getResearcherByWalletAddress(address _walletAddress)
@@ -448,9 +453,12 @@ contract Canvassing {
         newResearcher.walletAddress = _walletAddress;
         newResearcher.industry = _industry;
         newResearcher.yearOfIncorporation = _yearOfCorporation;
-        newResearcher.isParticipant = false;
         newResearcher.isVerified = false;
-        newResearcher.isBlank = false;
+
+        // Check if {_walletAddress} is a {Researcher}
+        newResearcher.isParticipant = checkIfParticipantExists(_walletAddress) ? true : false;
+  
+        allResearchers[_walletAddress] = newResearcher;
         currentResearcherId++;
     }
 
@@ -525,7 +533,6 @@ contract Canvassing {
         newFunding.surveyId = _surveyId;
         newFunding.creatingResearcherWalletAddress = _researcherWalletAddress;
         newFunding.amountFundedInWei = amountOfFundingOfSurveyInWei;
-        newFunding.isBlank = false;
 
         allFundings.push(newFunding);
 
@@ -537,7 +544,7 @@ contract Canvassing {
             _researcherWalletAddress
         ] = currentTotalAmountFundedByResearcherInWei += amountOfFundingOfSurveyInWei;
 
-        // Increment the GLOBAL {currentFundingId}
+        //  Increment the GLOBAL {currentFundingId}
         currentFundingId++;
     }
 
@@ -557,15 +564,14 @@ contract Canvassing {
     ) public {
         uint256 newSurveyId = currentSurveyId;
 
-        // Create {Survey} first
+        //  Create {Survey} first
         Survey memory newSurvey;
         newSurvey.id = newSurveyId;
         newSurvey.creatingResearcherWalletAddress = _researcherWalletAddress;
         newSurvey.topic = _topic;
         newSurvey.numberOfQuestions = _numberOfQuestions;
         newSurvey.targetNumberOfParticipants = _targetNumberOfParticipants;
-        newSurvey.amountFundedInWei = _amountFundedForSurvey;
-        newSurvey.isBlank = false;
+        newSurvey.amountFundedInWei = (_amountFundedForSurvey * cUSDDecimalPlaces);
         allSurveys.push(newSurvey);
 
         uint256 currentTotalNumberOfSurveysCreatedByResearcher = totalNumberOfSurveysCreatedByResearchers[
@@ -574,9 +580,9 @@ contract Canvassing {
 
         totalNumberOfSurveysCreatedByResearchers[
             _researcherWalletAddress
-        ] = currentTotalNumberOfSurveysCreatedByResearcher++;
+        ] = currentTotalNumberOfSurveysCreatedByResearcher + 1;
 
-        // Create each {Question} and add it to {allQuestions}
+        //  Create each {Question} and add it to {allQuestions}
         for (
             uint256 questionIndex = 0;
             questionIndex < _numberOfQuestions;
@@ -588,14 +594,13 @@ contract Canvassing {
             newQuestion.id = newQuestionId;
             newQuestion.surveyId = newSurvey.id;
             newQuestion.sentence = _questionSentences[questionIndex];
-            newQuestion.isBlank = false;
             allQuestions[newSurvey.id].push(newQuestion);
 
-            // Increment the GLOBAL {currentQuestionId}
+            //  Increment the GLOBAL {currentQuestionId}
             currentQuestionId++;
         }
 
-        // Increment the GLOBAL {currentSurveyId}
+        //  Increment the GLOBAL {currentSurveyId}
         currentSurveyId++;
     }
 
@@ -615,3 +620,16 @@ contract Canvassing {
         return allAnswers[_surveyId];
     }
 }
+
+//  IMPORTANT ADDRESSES
+//  The Old Lord:           0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5
+//  The Old Lady:           0x1c30082ae6F51E31F28736be3f715261223E4EDe
+//  The Old Lad:            0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93
+//  The Old Lass:           0x89878e9744AF84c091063543688C488d393E8912
+
+//  CONTRACT ADDRESSES
+//  First contract:         0xCE2A4c4bEAf92c87ECdbF832b21ac62610b2b4E6
+//  Second contract:        0xAC47D428C5f5aFCd20fe2B4826b4E86994C8A332
+//  Third contract:         0x13Cf04C9A825902e3F1B25d92176496242EECaFE
+//  ...
+//  ...

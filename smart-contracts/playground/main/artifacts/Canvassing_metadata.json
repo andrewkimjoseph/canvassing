@@ -1444,11 +1444,11 @@
 	},
 	"sources": {
 		"smart-contracts/playground/main/Canvassing.sol": {
-			"keccak256": "0x8a79c51776cc113e018f01a341a51d6daf8bf5e7420614048419ed9698f40128",
+			"keccak256": "0x53f06cbb25302dfa1348805ab5934b9b991c6ef9593d0fe598e584ab82bc0c0d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7f04e34ede24634ada24153893be0ccb6cd1704f1472ed57b0327fec3a79ba73",
-				"dweb:/ipfs/QmcjWAsPAdkEsNQhs9u3oQFLQdvcPzGc8hVDi9xAinnhDv"
+				"bzz-raw://56c5eb51cf5ee9bb457957090cbc907d37ec28638e58e9ef713fbb7b9241c849",
+				"dweb:/ipfs/QmbhW1WiMuJGvJK9ipH9WKbBZYU9DKoLvGshQuJyTnQvzK"
 			]
 		},
 		"smart-contracts/playground/utils/Interfaces.sol": {
