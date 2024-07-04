@@ -38,6 +38,9 @@ contract Canvassing {
 
     mapping(address => uint256) public totalAmountFundedByResearchersInWei;
 
+    //  address - {creatingResearcherWalletAddress}
+    mapping(address => uint256) public idsOfLatestSurveysCreatedByResearchers;
+
     //  uint256 - {surveyId}
     mapping(uint256 => Participant[]) public participantsOfSurvey;
 
@@ -598,6 +601,9 @@ contract Canvassing {
             cUSDDecimalPlaces);
         allSurveys.push(newSurvey);
 
+        idsOfLatestSurveysCreatedByResearchers[
+            _researcherWalletAddress
+        ] = newSurvey.id;
         uint256 currentTotalNumberOfSurveysCreatedByResearcher = totalNumberOfSurveysCreatedByResearchers[
                 _researcherWalletAddress
             ];
@@ -633,6 +639,15 @@ contract Canvassing {
         return newSurvey.id;
     }
 
+    function getIdsOfLatestSurveysCreatedByResearchers(
+        address _creatingResearcherWalletAddress
+    ) public view returns (uint256) {
+        return
+            idsOfLatestSurveysCreatedByResearchers[
+                _creatingResearcherWalletAddress
+            ];
+    }
+
     function getParticipantsOfSurvey(uint256 _surveyId)
         public
         view
@@ -663,7 +678,7 @@ contract Canvassing {
 //  Third:          0x13Cf04C9A825902e3F1B25d92176496242EECaFE
 //  Fourth:         0x55a9F3cab136ac3b73403d767a527b4675afF107
 //  Fifth:          0x3d5e1f13b84AE83025b2E8A0241ebf8d8b26af21
-//  ...
+//  Sixth:          0x82737595aC43c7432eb2285DA98D2Fd3D09f8957
 //  ...
 //  ...
 //  ...

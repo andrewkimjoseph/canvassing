@@ -879,6 +879,25 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_creatingResearcherWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getIdsOfLatestSurveysCreatedByResearchers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_walletAddress",
 						"type": "address"
 					}
@@ -1225,6 +1244,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "idsOfLatestSurveysCreatedByResearchers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_surveyId",
 						"type": "uint256"
@@ -1450,11 +1488,11 @@
 	},
 	"sources": {
 		"smart-contracts/playground/main/Canvassing.sol": {
-			"keccak256": "0xdf5b304ff1b4bad856480b046439e9478fa87d70f9c9ef1f8577be10313cf670",
+			"keccak256": "0x297c8c34f2108b56eb17b5d7bced13829e2f58c695998810e6ac5253d4aff76a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0b08a7f496e5672ad864c2c0d06efd4a60e1f872b014d98982fdfe02eccfe1f7",
-				"dweb:/ipfs/QmVn2ydFabg9Rh2HrwBw4umBuaem2EzwMobRh7ee5AK6fP"
+				"bzz-raw://f2c6c0f2546b84da229db31e2af8fa62b39726478b469043e630358ff10dcbf5",
+				"dweb:/ipfs/QmdhJTuWJUaVQSXTssZ6ZoKCqtW7ndGAgch3ZLq74vAiT9"
 			]
 		},
 		"smart-contracts/playground/utils/Interfaces.sol": {
