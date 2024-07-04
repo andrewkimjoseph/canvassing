@@ -94,8 +94,18 @@ contract Canvassing {
         newParticipant.yearOfBirth = _yearOfBirth;
 
         // Check if {_walletAddress} is a {Researcher}
-        newParticipant.isResearcher = checkIfResearcherExists(_walletAddress) ? true : false;
 
+        if (checkIfResearcherExists(_walletAddress)) {
+            Researcher memory existingResearcher = getResearcherByWalletAddress(
+                _walletAddress
+            );
+
+            existingResearcher.isParticipant = true;
+
+            newParticipant.isResearcher = true;
+
+            allResearchers[_walletAddress] = existingResearcher;
+        }
 
         allParticipants[_walletAddress] = newParticipant;
 
@@ -455,9 +465,22 @@ contract Canvassing {
         newResearcher.yearOfIncorporation = _yearOfCorporation;
         newResearcher.isVerified = false;
 
-        // Check if {_walletAddress} is a {Researcher}
-        newResearcher.isParticipant = checkIfParticipantExists(_walletAddress) ? true : false;
-  
+        //  Check if {_walletAddress} is a {Researcher}
+
+        if (checkIfParticipantExists(_walletAddress)) {
+            Participant
+                memory existingParticipant = getParticipantByWalletAddress(
+                    _walletAddress
+                );
+            (_walletAddress);
+
+            existingParticipant.isResearcher = true;
+
+            newResearcher.isParticipant = true;
+
+            allParticipants[_walletAddress] = existingParticipant;
+        }
+
         allResearchers[_walletAddress] = newResearcher;
         currentResearcherId++;
     }
@@ -571,16 +594,17 @@ contract Canvassing {
         newSurvey.topic = _topic;
         newSurvey.numberOfQuestions = _numberOfQuestions;
         newSurvey.targetNumberOfParticipants = _targetNumberOfParticipants;
-        newSurvey.amountFundedInWei = (_amountFundedForSurvey * cUSDDecimalPlaces);
+        newSurvey.amountFundedInWei = (_amountFundedForSurvey *
+            cUSDDecimalPlaces);
         allSurveys.push(newSurvey);
 
         uint256 currentTotalNumberOfSurveysCreatedByResearcher = totalNumberOfSurveysCreatedByResearchers[
                 _researcherWalletAddress
             ];
 
-        totalNumberOfSurveysCreatedByResearchers[
-            _researcherWalletAddress
-        ] = currentTotalNumberOfSurveysCreatedByResearcher + 1;
+        totalNumberOfSurveysCreatedByResearchers[_researcherWalletAddress] =
+            currentTotalNumberOfSurveysCreatedByResearcher +
+            1;
 
         //  Create each {Question} and add it to {allQuestions}
         for (
@@ -621,15 +645,15 @@ contract Canvassing {
     }
 }
 
-//  IMPORTANT ADDRESSES
+//  EOA ADDRESSES
 //  The Old Lord:           0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5
 //  The Old Lady:           0x1c30082ae6F51E31F28736be3f715261223E4EDe
 //  The Old Lad:            0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93
 //  The Old Lass:           0x89878e9744AF84c091063543688C488d393E8912
 
-//  CONTRACT ADDRESSES
+//  SMART CONTRACT ADDRESSES
 //  First contract:         0xCE2A4c4bEAf92c87ECdbF832b21ac62610b2b4E6
 //  Second contract:        0xAC47D428C5f5aFCd20fe2B4826b4E86994C8A332
 //  Third contract:         0x13Cf04C9A825902e3F1B25d92176496242EECaFE
-//  ...
+//  Fourth contract:        0x55a9F3cab136ac3b73403d767a527b4675afF107
 //  ...
