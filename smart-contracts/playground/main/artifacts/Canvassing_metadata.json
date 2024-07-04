@@ -498,7 +498,13 @@
 					}
 				],
 				"name": "createSurvey",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -1444,11 +1450,11 @@
 	},
 	"sources": {
 		"smart-contracts/playground/main/Canvassing.sol": {
-			"keccak256": "0x9aad24ecd843f2e48a5fb1ab020ac5928340244d0ae628d9e5377dbaf61516c9",
+			"keccak256": "0xdf5b304ff1b4bad856480b046439e9478fa87d70f9c9ef1f8577be10313cf670",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a616636123e3a6d466e00965513a63feae823b4917948441a05313d17913c82c",
-				"dweb:/ipfs/QmQbd4Fv3fU72z6ENPqrE4D3B5j2oUKckCw3v8NpiRME8M"
+				"bzz-raw://0b08a7f496e5672ad864c2c0d06efd4a60e1f872b014d98982fdfe02eccfe1f7",
+				"dweb:/ipfs/QmVn2ydFabg9Rh2HrwBw4umBuaem2EzwMobRh7ee5AK6fP"
 			]
 		},
 		"smart-contracts/playground/utils/Interfaces.sol": {

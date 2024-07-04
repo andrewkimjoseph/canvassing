@@ -584,7 +584,7 @@ contract Canvassing {
         uint256 _targetNumberOfParticipants,
         string[] memory _questionSentences,
         uint256 _amountFundedForSurvey
-    ) public {
+    ) public returns (uint256) {
         uint256 newSurveyId = currentSurveyId;
 
         //  Create {Survey} first
@@ -602,9 +602,12 @@ contract Canvassing {
                 _researcherWalletAddress
             ];
 
-        totalNumberOfSurveysCreatedByResearchers[_researcherWalletAddress] =
-            currentTotalNumberOfSurveysCreatedByResearcher +
-            1;
+        uint256 newestTotalNumberOfSurveysCreatedByResearcher = currentTotalNumberOfSurveysCreatedByResearcher +
+                1;
+
+        totalNumberOfSurveysCreatedByResearchers[
+            _researcherWalletAddress
+        ] = newestTotalNumberOfSurveysCreatedByResearcher;
 
         //  Create each {Question} and add it to {allQuestions}
         for (
@@ -626,6 +629,8 @@ contract Canvassing {
 
         //  Increment the GLOBAL {currentSurveyId}
         currentSurveyId++;
+
+        return newSurvey.id;
     }
 
     function getParticipantsOfSurvey(uint256 _surveyId)
@@ -646,14 +651,20 @@ contract Canvassing {
 }
 
 //  EOA ADDRESSES
-//  The Old Lord:           0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5
-//  The Old Lady:           0x1c30082ae6F51E31F28736be3f715261223E4EDe
-//  The Old Lad:            0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93
-//  The Old Lass:           0x89878e9744AF84c091063543688C488d393E8912
+//  The Old Lord:   0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5
+//  The Old Lady:   0x1c30082ae6F51E31F28736be3f715261223E4EDe
+//  The Old Lad:    0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93
+//  The Old Lass:   0x89878e9744AF84c091063543688C488d393E8912
+//  The New Lord:   0xE49B05F2c7DD51f61E415E1DFAc10B80074B001A
 
 //  SMART CONTRACT ADDRESSES
-//  First contract:         0xCE2A4c4bEAf92c87ECdbF832b21ac62610b2b4E6
-//  Second contract:        0xAC47D428C5f5aFCd20fe2B4826b4E86994C8A332
-//  Third contract:         0x13Cf04C9A825902e3F1B25d92176496242EECaFE
-//  Fourth contract:        0x55a9F3cab136ac3b73403d767a527b4675afF107
+//  First:          0xCE2A4c4bEAf92c87ECdbF832b21ac62610b2b4E6
+//  Second:         0xAC47D428C5f5aFCd20fe2B4826b4E86994C8A332
+//  Third:          0x13Cf04C9A825902e3F1B25d92176496242EECaFE
+//  Fourth:         0x55a9F3cab136ac3b73403d767a527b4675afF107
+//  Fifth:          0x3d5e1f13b84AE83025b2E8A0241ebf8d8b26af21
+//  ...
+//  ...
+//  ...
+//  ...
 //  ...
