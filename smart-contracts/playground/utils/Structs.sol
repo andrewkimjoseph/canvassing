@@ -52,7 +52,7 @@ struct Answer {
 struct Earning {
     uint256 id;
     uint256 surveyId;
-    address walletAddress;
+    address recipientWalletAddress;
     uint256 amountPaidOutInWei;
     bool isBlank;
 }

@@ -1,5 +1,5 @@
 {
-	"id": "52899d9b9a0d2cc1f67dcf952362b31b",
+	"id": "64f3445c006dfb89c6f4c410a90b5da1",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.19",
 	"solcLongVersion": "0.8.19+commit.7dd6d404",
@@ -7,7 +7,7 @@
 		"language": "Solidity",
 		"sources": {
 			"smart-contracts/playground/utils/Structs.sol": {
-				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.8.19;\n\nstruct Researcher {\n    uint256 id;\n    address walletAddress;\n    string industry;\n    uint256 yearOfIncorporation;\n    bool isParticipant;\n    bool isVerified;\n    bool isBlank;\n}\n\nstruct Participant{\n    uint256 id;\n    address walletAddress;\n    string gender;   \n    string country;\n    uint256 yearOfBirth;\n    uint256 totalNumberOfSurveysTaken;\n    bool isResearcher;\n    bool isBlank;\n}\n\nstruct Survey {\n    uint256 id;\n    address creatingResearcherWalletAddress;\n    string topic;\n    uint256 numberOfQuestions;\n    uint256 targetNumberOfParticipants;\n    uint256 amountFundedInWei;\n    bool isBlank;\n}\n\nstruct Question {\n    uint256 id;\n    uint256 surveyId;\n    string sentence;\n    bool isBlank;\n}\n\nstruct Answer {\n    uint256 id;\n    uint256 questionId;\n    uint256 surveyId;\n    address participantWalletAddress;\n    bool value;\n    bool isBlank;\n}\n\nstruct Earning {\n    uint256 id;\n    uint256 surveyId;\n    address walletAddress;\n    uint256 amountPaidOutInWei;\n    bool isBlank;\n}\n\nstruct Funding {\n    uint256 id;\n    uint256 surveyId;\n    address creatingResearcherWalletAddress;\n    uint256 amountFundedInWei;\n    bool isBlank;\n}"
+				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.8.19;\n\nstruct Researcher {\n    uint256 id;\n    address walletAddress;\n    string industry;\n    uint256 yearOfIncorporation;\n    bool isParticipant;\n    bool isVerified;\n    bool isBlank;\n}\n\nstruct Participant{\n    uint256 id;\n    address walletAddress;\n    string gender;   \n    string country;\n    uint256 yearOfBirth;\n    uint256 totalNumberOfSurveysTaken;\n    bool isResearcher;\n    bool isBlank;\n}\n\nstruct Survey {\n    uint256 id;\n    address creatingResearcherWalletAddress;\n    string topic;\n    uint256 numberOfQuestions;\n    uint256 targetNumberOfParticipants;\n    uint256 amountFundedInWei;\n    bool isBlank;\n}\n\nstruct Question {\n    uint256 id;\n    uint256 surveyId;\n    string sentence;\n    bool isBlank;\n}\n\nstruct Answer {\n    uint256 id;\n    uint256 questionId;\n    uint256 surveyId;\n    address participantWalletAddress;\n    bool value;\n    bool isBlank;\n}\n\nstruct Earning {\n    uint256 id;\n    uint256 surveyId;\n    address recipientWalletAddress;\n    uint256 amountPaidOutInWei;\n    bool isBlank;\n}\n\nstruct Funding {\n    uint256 id;\n    uint256 surveyId;\n    address creatingResearcherWalletAddress;\n    uint256 amountFundedInWei;\n    bool isBlank;\n}"
 			}
 		},
 		"settings": {
@@ -1070,11 +1070,11 @@
 									"constant": false,
 									"id": 76,
 									"mutability": "mutable",
-									"name": "walletAddress",
-									"nameLocation": "990:13:0",
+									"name": "recipientWalletAddress",
+									"nameLocation": "990:22:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 81,
-									"src": "982:21:0",
+									"src": "982:30:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1099,10 +1099,10 @@
 									"id": 78,
 									"mutability": "mutable",
 									"name": "amountPaidOutInWei",
-									"nameLocation": "1017:18:0",
+									"nameLocation": "1026:18:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 81,
-									"src": "1009:26:0",
+									"src": "1018:26:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1113,7 +1113,7 @@
 										"id": 77,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1009:7:0",
+										"src": "1018:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1126,10 +1126,10 @@
 									"id": 80,
 									"mutability": "mutable",
 									"name": "isBlank",
-									"nameLocation": "1046:7:0",
+									"nameLocation": "1055:7:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 81,
-									"src": "1041:12:0",
+									"src": "1050:12:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1140,7 +1140,7 @@
 										"id": 79,
 										"name": "bool",
 										"nodeType": "ElementaryTypeName",
-										"src": "1041:4:0",
+										"src": "1050:4:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_bool",
 											"typeString": "bool"
@@ -1153,7 +1153,7 @@
 							"nameLocation": "930:7:0",
 							"nodeType": "StructDefinition",
 							"scope": 93,
-							"src": "923:133:0",
+							"src": "923:142:0",
 							"visibility": "public"
 						},
 						{
@@ -1165,10 +1165,10 @@
 									"id": 83,
 									"mutability": "mutable",
 									"name": "id",
-									"nameLocation": "1087:2:0",
+									"nameLocation": "1096:2:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 92,
-									"src": "1079:10:0",
+									"src": "1088:10:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1179,7 +1179,7 @@
 										"id": 82,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1079:7:0",
+										"src": "1088:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1192,10 +1192,10 @@
 									"id": 85,
 									"mutability": "mutable",
 									"name": "surveyId",
-									"nameLocation": "1103:8:0",
+									"nameLocation": "1112:8:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 92,
-									"src": "1095:16:0",
+									"src": "1104:16:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1206,7 +1206,7 @@
 										"id": 84,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1095:7:0",
+										"src": "1104:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1219,10 +1219,10 @@
 									"id": 87,
 									"mutability": "mutable",
 									"name": "creatingResearcherWalletAddress",
-									"nameLocation": "1125:31:0",
+									"nameLocation": "1134:31:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 92,
-									"src": "1117:39:0",
+									"src": "1126:39:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1233,7 +1233,7 @@
 										"id": 86,
 										"name": "address",
 										"nodeType": "ElementaryTypeName",
-										"src": "1117:7:0",
+										"src": "1126:7:0",
 										"stateMutability": "nonpayable",
 										"typeDescriptions": {
 											"typeIdentifier": "t_address",
@@ -1247,10 +1247,10 @@
 									"id": 89,
 									"mutability": "mutable",
 									"name": "amountFundedInWei",
-									"nameLocation": "1170:17:0",
+									"nameLocation": "1179:17:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 92,
-									"src": "1162:25:0",
+									"src": "1171:25:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1261,7 +1261,7 @@
 										"id": 88,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1162:7:0",
+										"src": "1171:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1274,10 +1274,10 @@
 									"id": 91,
 									"mutability": "mutable",
 									"name": "isBlank",
-									"nameLocation": "1198:7:0",
+									"nameLocation": "1207:7:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 92,
-									"src": "1193:12:0",
+									"src": "1202:12:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1288,7 +1288,7 @@
 										"id": 90,
 										"name": "bool",
 										"nodeType": "ElementaryTypeName",
-										"src": "1193:4:0",
+										"src": "1202:4:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_bool",
 											"typeString": "bool"
@@ -1298,14 +1298,14 @@
 								}
 							],
 							"name": "Funding",
-							"nameLocation": "1065:7:0",
+							"nameLocation": "1074:7:0",
 							"nodeType": "StructDefinition",
 							"scope": 93,
-							"src": "1058:150:0",
+							"src": "1067:150:0",
 							"visibility": "public"
 						}
 					],
-					"src": "33:1175:0"
+					"src": "33:1184:0"
 				},
 				"id": 0
 			}

@@ -76,7 +76,7 @@
 					},
 					{
 						"internalType": "address",
-						"name": "walletAddress",
+						"name": "recipientWalletAddress",
 						"type": "address"
 					},
 					{
@@ -582,7 +582,7 @@
 							},
 							{
 								"internalType": "address",
-								"name": "walletAddress",
+								"name": "recipientWalletAddress",
 								"type": "address"
 							},
 							{
@@ -1444,11 +1444,11 @@
 	},
 	"sources": {
 		"smart-contracts/playground/main/Canvassing.sol": {
-			"keccak256": "0xe232fefc4b9403e61f0130adfe61ba4ab44831c9e357802e1744dd81d7f61f37",
+			"keccak256": "0x8a79c51776cc113e018f01a341a51d6daf8bf5e7420614048419ed9698f40128",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://835a8cc1ca67f230f51c11fcd015e85ae48b2747d5d73c6a7ac3df403700fe8e",
-				"dweb:/ipfs/QmcSV21LXiA9xRKs8HXKxULxaPYUqvoC4RhUa4ohypfbow"
+				"bzz-raw://7f04e34ede24634ada24153893be0ccb6cd1704f1472ed57b0327fec3a79ba73",
+				"dweb:/ipfs/QmcjWAsPAdkEsNQhs9u3oQFLQdvcPzGc8hVDi9xAinnhDv"
 			]
 		},
 		"smart-contracts/playground/utils/Interfaces.sol": {
@@ -1460,11 +1460,11 @@
 			]
 		},
 		"smart-contracts/playground/utils/Structs.sol": {
-			"keccak256": "0xcb4ef1e2278f17079f678b9baa821d450c05873e5ac996b5d6e24568e6149dc8",
+			"keccak256": "0x9df71f76cd83831ba16fb3adcb7dad6074a66b3b03b4da05be94261a76d287ff",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1f71b1751d1804bd55d02ebb83c88fdaaf429b0fdebc46f9bf5420f9fc1ad17a",
-				"dweb:/ipfs/QmZMWUt6US8q4ExYuokk7r5ncvTAvKeVaQzCyF7DYbeooQ"
+				"bzz-raw://3aa19e4e89d01737ac1b016fa341215e34cc83c9452d13c7e13b9672501b30ad",
+				"dweb:/ipfs/QmVthqQAARG6tJDR4CEuYmcTtneaodHFXN6sUhH1LhCdH6"
 			]
 		}
 	},

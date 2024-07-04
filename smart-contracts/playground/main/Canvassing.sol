@@ -45,7 +45,7 @@ contract Canvassing {
 
     Earning[] public allEarnings;
 
-    // GLOBAL
+    // GLOBALS
     uint256 currentResearcherId;
     uint256 currentParticipantId;
     uint256 currentSurveyId;
@@ -54,9 +54,9 @@ contract Canvassing {
     uint256 currentEarningId;
     uint256 currentFundingId;
 
-    
     // CUSD
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
+    uint256 cUSDDecimalPlaces = 10**(cUSD.decimals());
 
     function checkIfParticipantExists(address _walletAddress)
         public
@@ -131,13 +131,13 @@ contract Canvassing {
         ) {
             Earning memory runningEarning = allEarnings[earningId];
 
-            if (runningEarning.walletAddress == _walletAddress) {
+            if (runningEarning.recipientWalletAddress == _walletAddress) {
                 allEarningsMadeByParticipant[earningIndex] = runningEarning;
                 earningIndex++;
-            }
 
-            if (earningIndex == totalNumberOfSurveysTakenByParticipant) {
-                break;
+                if (earningIndex == totalNumberOfSurveysTakenByParticipant) {
+                    break;
+                }
             }
         }
 
@@ -244,10 +244,10 @@ contract Canvassing {
             ) {
                 allAnswersOfParticipantOfSurvey[answerIndex] = runningAnswer;
                 answerIndex++;
-            }
 
-            if (answerIndex == totalNumberOfAnswersOfParticipantOfSurvey) {
-                break;
+                if (answerIndex == totalNumberOfAnswersOfParticipantOfSurvey) {
+                    break;
+                }
             }
         }
         return allAnswersOfParticipantOfSurvey;
@@ -267,23 +267,24 @@ contract Canvassing {
     ) public view returns (uint256) {
         uint256 potentialFundingOfAnySurveyInWei = 0;
 
-        // Number of {Question}
-        potentialFundingOfAnySurveyInWei += _numberOfQuestions;
-
+        // Number of {Question}s
+        // 1 question == 1 cUSD Ether or 1000000000000000000 cUSD Wei (18 d.p.)
+        potentialFundingOfAnySurveyInWei += (_numberOfQuestions *
+            cUSDDecimalPlaces);
         // Target Number of {Participant}
         if (_targetNumberOfParticipants == 5) {
-            potentialFundingOfAnySurveyInWei += 2;
+            potentialFundingOfAnySurveyInWei += (2 * cUSDDecimalPlaces);
         }
 
         if (_targetNumberOfParticipants == 7) {
-            potentialFundingOfAnySurveyInWei += 4;
+            potentialFundingOfAnySurveyInWei += (4 * cUSDDecimalPlaces);
         }
 
         if (_targetNumberOfParticipants == 9) {
-            potentialFundingOfAnySurveyInWei += 6;
+            potentialFundingOfAnySurveyInWei += (6 * cUSDDecimalPlaces);
         }
 
-        return potentialFundingOfAnySurveyInWei * (10**cUSD.decimals());
+        return potentialFundingOfAnySurveyInWei;
     }
 
     function getAmountOfEarningPerParticipantForSurveyInWei(uint256 _surveyId)
@@ -293,19 +294,17 @@ contract Canvassing {
     {
         Survey memory currentSurvey = allSurveys[_surveyId];
 
-        uint256 amountFundedInWei = currentSurvey.amountFundedInWei;
+        uint256 amountFundedInWeiForSurvey = currentSurvey.amountFundedInWei;
         uint256 targetNumberOfParticipants = currentSurvey
             .targetNumberOfParticipants;
 
-        uint256 participantRevenueSharingPoolAmount = (amountFundedInWei * 5) /
-            10;
+        uint256 participantRevenueSharingPoolAmountInWei = (amountFundedInWeiForSurvey *
+                5) / 10;
 
-        uint256 potentialEarningPerParticipantForSurveyInWei = participantRevenueSharingPoolAmount /
+        uint256 amountOfEarningPerParticipantForSurveyInWei = participantRevenueSharingPoolAmountInWei /
                 targetNumberOfParticipants;
 
-        return
-            potentialEarningPerParticipantForSurveyInWei *
-            (10**cUSD.decimals());
+        return amountOfEarningPerParticipantForSurveyInWei;
     }
 
     function getAmountOfEarningForCanvassingForSurveyPerParticipantInWei(
@@ -313,11 +312,11 @@ contract Canvassing {
         uint256 _numberOfParticipants
     ) public view returns (uint256) {
         Survey memory currentSurvey = allSurveys[_surveyId];
-        uint256 amountFundedInWei = currentSurvey.amountFundedInWei;
-        uint256 canvassingShareAmountPerParticipant = ((amountFundedInWei * 5) /
-            10) / _numberOfParticipants;
+        uint256 amountFundedInWeiForSurvey = currentSurvey.amountFundedInWei;
+        uint256 canvassingShareAmountPerParticipantInWei = ((amountFundedInWeiForSurvey *
+                5) / 10) / _numberOfParticipants;
 
-        return canvassingShareAmountPerParticipant * (10**cUSD.decimals());
+        return canvassingShareAmountPerParticipantInWei;
     }
 
     function participateInSurvey(
@@ -325,6 +324,10 @@ contract Canvassing {
         address _participantWalletAddress,
         bool[] memory _answerValues
     ) public {
+        Participant memory currentParticipant = allParticipants[
+            _participantWalletAddress
+        ];
+
         Survey memory currentSurvey = allSurveys[_surveyId];
 
         uint256 numberOfExpectedAnswers = currentSurvey.numberOfQuestions;
@@ -351,9 +354,16 @@ contract Canvassing {
             _participantWalletAddress
         ] = true;
 
+        // Add {Participant} to the list of {Participant}s of {Survey}
         participantsOfSurvey[_surveyId].push(
             getParticipantByWalletAddress(_participantWalletAddress)
         );
+
+        // Update the {Participant.totalNumberOfSurveysTaken} by incrementing it by 1
+        currentParticipant.totalNumberOfSurveysTaken += 1;
+
+        // Update the {Participant}
+        allParticipants[_participantWalletAddress] = currentParticipant;
     }
 
     function makePayoutAndCreateEarning(
@@ -366,7 +376,6 @@ contract Canvassing {
         uint256 amountToBePaidOutToParticipantInWei = getAmountOfEarningPerParticipantForSurveyInWei(
                 _surveyId
             );
-        (_surveyId);
 
         cUSD.transfer(
             _participantWalletAddress,
@@ -388,7 +397,8 @@ contract Canvassing {
         Earning memory newParticipantEarning;
         newParticipantEarning.id = currentEarningId;
         newParticipantEarning.surveyId = _surveyId;
-        newParticipantEarning.walletAddress = _participantWalletAddress;
+        newParticipantEarning
+            .recipientWalletAddress = _participantWalletAddress;
         newParticipantEarning
             .amountPaidOutInWei = amountToBePaidOutToParticipantInWei;
         newParticipantEarning.isBlank = false;
@@ -402,7 +412,7 @@ contract Canvassing {
         Earning memory newCanvassingEarning;
         newCanvassingEarning.id = currentEarningId;
         newCanvassingEarning.surveyId = _surveyId;
-        newCanvassingEarning.walletAddress = canvassingWalletAddress;
+        newCanvassingEarning.recipientWalletAddress = canvassingWalletAddress;
         newCanvassingEarning
             .amountPaidOutInWei = amountToBePaidOutToCanvassingInWei;
         newCanvassingEarning.isBlank = false;
@@ -486,10 +496,10 @@ contract Canvassing {
             ) {
                 allSurveysCreatedByResearcher[surveyIndex] = runningSurvey;
                 surveyIndex++;
-            }
 
-            if (surveyIndex == totalNumberOfSurveysCreatedByResearcher) {
-                break;
+                if (surveyIndex == totalNumberOfSurveysCreatedByResearcher) {
+                    break;
+                }
             }
         }
 
