@@ -1473,7 +1473,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"smart-contracts/classroom/main/Canvassing.sol": "Canvassing"
+			"smart-contracts/classroom/main/Canvassing_flattened.sol": "Canvassing"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -1487,28 +1487,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"smart-contracts/classroom/main/Canvassing.sol": {
-			"keccak256": "0x6b7fb0da68548aa2c2c19a48fdb2c0e107becf62fc779c5a591a61102668176f",
-			"license": "MIT",
+		"smart-contracts/classroom/main/Canvassing_flattened.sol": {
+			"keccak256": "0x6256548217f8ef22e182c5e0b66b75a35fac595d8c2bdb44fc895e85f18fddd9",
 			"urls": [
-				"bzz-raw://33ece0e3a2bff3a8e1f9ed1757a8c0ac7f05da402c8dcda70af71ce6266cde87",
-				"dweb:/ipfs/QmR6VesQf5CjMNWnVdnVVa9M71qFedQY3WjzhgaLkTHnV8"
-			]
-		},
-		"smart-contracts/classroom/utils/Interfaces.sol": {
-			"keccak256": "0x2031a934343c4a06d7f5a781de69e63bfd38f8a730ff784d4bf8faaf361bfe34",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://91a055c5d199254f55d04fce9c82e5d46f531c6b1907af8b8239ef707ea1ea2f",
-				"dweb:/ipfs/QmedQeKUYRHEkrLo2dEn1QGbWaJoyyfYgbah1MML9pEoPb"
-			]
-		},
-		"smart-contracts/classroom/utils/Structs.sol": {
-			"keccak256": "0x9df71f76cd83831ba16fb3adcb7dad6074a66b3b03b4da05be94261a76d287ff",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://3aa19e4e89d01737ac1b016fa341215e34cc83c9452d13c7e13b9672501b30ad",
-				"dweb:/ipfs/QmVthqQAARG6tJDR4CEuYmcTtneaodHFXN6sUhH1LhCdH6"
+				"bzz-raw://2a61e0a408ad5ed0c2d472f2d7a8fbf3c95a0df4cab950b71ffb0e1373cc595d",
+				"dweb:/ipfs/QmRGBwDPRt9Ko7UgGQM4YPTQ79U1EKhdk2f3jHjzGQ84Yz"
 			]
 		}
 	},
