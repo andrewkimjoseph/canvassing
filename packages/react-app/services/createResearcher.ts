@@ -9,7 +9,7 @@ import {
 } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createEvent = async (
+export const createResearcher = async (
   _signerAddress: `0x${string}` | undefined,
   {
     _walletAddress,
@@ -52,7 +52,6 @@ export const createEvent = async (
       } else {
         return false;
       }
-
     } catch (err) {
       console.error(err);
       return false;
@@ -62,8 +61,8 @@ export const createEvent = async (
 };
 
 export type CreateResearcherProps = {
-  _walletAddress: `0x${string}`;
+  _walletAddress: `0x${string}` ;
   _industry: string;
   _numberOfEmployees: string;
-  _yearsInOperation: number;
+  _yearsInOperation: string;
 };
