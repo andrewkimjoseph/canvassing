@@ -63,7 +63,7 @@ function App({ Component, pageProps }: AppProps) {
             >
               <CanvassingNavbar />
 
-              <Component {...pageProps} />
+              <Component  {...pageProps} />
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>
