@@ -246,9 +246,14 @@ export const canvassingContractABI =
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "yearOfIncorporation",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "numberOfEmployees",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "yearsInOperation",
+				"type": "string"
 			},
 			{
 				"internalType": "bool",
@@ -449,9 +454,14 @@ export const canvassingContractABI =
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_yearOfCorporation",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "_numberOfEmployees",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_yearsInOperation",
+				"type": "string"
 			}
 		],
 		"name": "createResearcher",
@@ -1039,9 +1049,14 @@ export const canvassingContractABI =
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
-						"name": "yearOfIncorporation",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "numberOfEmployees",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "yearsInOperation",
+						"type": "string"
 					},
 					{
 						"internalType": "bool",
