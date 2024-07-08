@@ -19,6 +19,7 @@ import NavLink from "./navLink";
 
 import { useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
+import LogoLink from "./logoLink";
 const Links = [
   {
     "title": "Onboarding",
@@ -78,7 +79,11 @@ export default function CanvassingNavbar() {
           />
           <HStack spacing={8} alignItems={"center"}>
             {/* <Box>Stekcit BwC</Box> */}
+
+            <LogoLink href="/">
             <CanvassingLogo />
+
+            </LogoLink>
             <HStack
               as={"nav"}
               spacing={4}
