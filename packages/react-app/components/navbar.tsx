@@ -14,13 +14,21 @@ import {
   Fade,
   ScaleFade,
   Slide,
+  Collapse,
+  Circle,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  HamburgerIcon,
+  CloseIcon,
+  MoonIcon,
+  SunIcon,
+  PhoneIcon,
+} from "@chakra-ui/icons";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { CanvassingLogo } from "./logo";
 import NavLink from "./navLink";
 
-import { useConnect } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
 import LogoLink from "./logoLink";
 const Links = [
@@ -44,6 +52,9 @@ const Links = [
 
 export default function CanvassingNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userAddress, setUserAddress] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+  const { address, isConnected } = useAccount();
 
   const { connect } = useConnect();
 
@@ -59,9 +70,25 @@ export default function CanvassingNavbar() {
     }
   }, []);
 
+
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setUserAddress(address);
+    }
+  }, [address, isConnected]);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <>
-      <Box bg="#C0D6E8" px={2} position="sticky" top="0" zIndex="1000">
+      <Box bg="#C0D6E8" px={4} position="sticky" top="0" zIndex="1000">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             border={"1px solid black"}
@@ -73,7 +100,7 @@ export default function CanvassingNavbar() {
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={"center"}>
+          <HStack spacing={4} alignItems={"center"}>
             {/* <Box>Stekcit BwC</Box> */}
 
             <LogoLink href="/">
@@ -113,7 +140,7 @@ export default function CanvassingNavbar() {
             /> */}
 
             {!isMiniPay ? (
-              <ConnectButton
+                   <ConnectButton
                 chainStatus="none"
                 accountStatus={{
                   smallScreen: "avatar",
@@ -126,47 +153,43 @@ export default function CanvassingNavbar() {
                 label="Connect"
               />
             ) : (
-              <div style={{ visibility: "hidden", pointerEvents: "none" }}>
-                <ConnectButton
-                  chainStatus="none"
-                  accountStatus={{
-                    smallScreen: "avatar",
-                    largeScreen: "avatar",
-                  }}
-                  showBalance={{
-                    smallScreen: false,
-                    largeScreen: true,
-                  }}
-                  label="Connect"
-                />
-              </div>
+     
+              <Circle size="10px" bg={`${isConnected ? "green" : "tomato"}`} color="white">
+                {/* <PhoneIcon /> */}
+              </Circle>
             )}
           </Flex>
         </Flex>
-
-        {isOpen ? (
-          <Slide direction="bottom" in={isOpen}>
-            <Box
-              pb={2}
-              display={{ md: "none" }}
-              className="flex flex-col"
-              bg="#C0D6E8"
-              px={2}
-              py={4}
-              borderTopRadius={20}
-            >
-              <Stack as={"nav"} spacing={4}>
-                {Links.map((link) => (
-                  <NavLink href={link.href} key={link.href}>
-                    {link.title}
-                  </NavLink>
-                ))}
-              </Stack>
-            </Box>
-          </Slide>
-        ) : null}
       </Box>
 
+      {isOpen ? (
+        <Slide direction="top" in={isOpen} style={{ zIndex: 10 }}>
+          <Box
+            mt={16}
+            pb={2}
+            display={{ md: "none" }}
+            className="flex flex-col w-full h-screen"
+            bg="#C0D6E8"
+            px={2}
+            py={4}
+            // borderTopRadius={20}
+            zIndex={0}
+          >
+            <Stack as={"nav"} spacing={4}>
+              {Links.map((link) => (
+                <NavLink href={link.href} key={link.href}>
+                  {link.title}
+                </NavLink>
+              ))}
+            </Stack>
+          </Box>
+        </Slide>
+      ) : // <Collapse in={isOpen} animateOpacity>
+
+      // </Collapse>
+      // <Fade in={isOpen}>
+
+      null}
       {/* <Box p={4}>Main Content Here</Box> */}
     </>
   );

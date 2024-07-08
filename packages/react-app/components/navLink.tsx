@@ -7,7 +7,7 @@ interface NavLinkProps {
 
 const NavLink = ({ children, href }: NavLinkProps) => (
   <Link
-    px={4}
+    px={3}
     py={2}
     rounded={"md"}
     textColor={"black"}
