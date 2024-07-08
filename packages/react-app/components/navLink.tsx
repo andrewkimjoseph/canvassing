@@ -7,8 +7,8 @@ interface NavLinkProps {
 
 const NavLink = ({ children, href }: NavLinkProps) => (
   <Link
-    px={2}
-    py={1}
+    px={4}
+    py={2}
     rounded={"md"}
     textColor={"black"}
     fontSize={"16px"}
@@ -16,7 +16,7 @@ const NavLink = ({ children, href }: NavLinkProps) => (
     _hover={{
       textColor: "black",
       textDecoration: "none",
-      bg: "white",
+      bg: "#F5E8C7",
     }}
     href={href}
   >

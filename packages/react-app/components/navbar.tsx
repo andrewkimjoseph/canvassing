@@ -11,6 +11,9 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
+  Fade,
+  ScaleFade,
+  Slide,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -22,23 +25,22 @@ import { injected } from "wagmi/connectors";
 import LogoLink from "./logoLink";
 const Links = [
   {
-    "title": "Onboarding",
-    "href": "/"
+    title: "Onboarding",
+    href: "/",
   },
   {
-    "title": "Participant Home",
-    "href": "/participant"
+    title: "Participant Home",
+    href: "/participant",
   },
   {
-    "title": "Researcher Home",
-    "href": "/researcher"
+    title: "Researcher Home",
+    href: "/researcher",
   },
   // {
   //   "title": "Approve Us",
   //   "href": "/approve-us"
   // },
 ];
-
 
 export default function CanvassingNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,16 +61,10 @@ export default function CanvassingNavbar() {
 
   return (
     <>
-      <Box
-        bg={useColorModeValue("#C0D6E8", "#C0D6E8")}
-        px={2}
-        position="sticky"
-        top="0"
-        zIndex="1000"
-      >
+      <Box bg="#C0D6E8" px={2} position="sticky" top="0" zIndex="1000">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
-          border={"1px solid black"}
+            border={"1px solid black"}
             bgColor={"#F5E8C7"}
             color={"black"}
             size={"md"}
@@ -81,8 +77,7 @@ export default function CanvassingNavbar() {
             {/* <Box>Stekcit BwC</Box> */}
 
             <LogoLink href="/">
-            <CanvassingLogo />
-
+              <CanvassingLogo />
             </LogoLink>
             <HStack
               as={"nav"}
@@ -90,7 +85,9 @@ export default function CanvassingNavbar() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>{link.title}</NavLink>
+                <NavLink href={link.href} key={link.href}>
+                  {link.title}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -148,16 +145,26 @@ export default function CanvassingNavbar() {
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: "none" }} className="flex flex-col ">
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>{link.title}</NavLink>
-              ))}
-            </Stack>
-            
-          </Box>
+          <Slide direction="bottom" in={isOpen}>
+            <Box
+              pb={2}
+              display={{ md: "none" }}
+              className="flex flex-col"
+              bg="#C0D6E8"
+              px={2}
+              py={4}
+              borderTopRadius={20}
+            >
+              <Stack as={"nav"} spacing={4}>
+                {Links.map((link) => (
+                  <NavLink href={link.href} key={link.href}>
+                    {link.title}
+                  </NavLink>
+                ))}
+              </Stack>
+            </Box>
+          </Slide>
         ) : null}
-        
       </Box>
 
       {/* <Box p={4}>Main Content Here</Box> */}
