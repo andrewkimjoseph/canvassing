@@ -69,7 +69,7 @@ export default function Home() {
             router.push(
               participantExists
                 ? "/participant"
-                : "/participant/account-creation"
+                : "/participant/become-one"
             )
           }
           width={"full"}
@@ -85,7 +85,7 @@ export default function Home() {
         <Button
           onClick={() =>
             router.push(
-              researcherExists ? "/researcher" : "/researcher/account-creation"
+              researcherExists ? "/researcher" : "/researcher/become-one"
             )
           }
           marginTop={"4"}
