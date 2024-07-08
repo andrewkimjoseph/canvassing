@@ -71,14 +71,14 @@ export default function ResearcherAccountCreation() {
       </Text>
       <Image
         // paddingY={8}
-        height={"150px"}
-        width={"150px"}
+        height={"200px"}
+        width={"200px"}
         src="/researcher.png"
         alt="Home image"
       />
   
 
-      <Text  fontSize={"16"} mt={1} mb={1}>
+      <Text fontWeight={"bold"} fontSize={"16"} mt={1} mb={1}>
         Select Details
       </Text>
 
@@ -130,7 +130,7 @@ export default function ResearcherAccountCreation() {
 
       {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
-      <Modal
+      {/* <Modal
         blockScrollOnMount={false}
         isOpen={isOpen}
         onClose={onClose}
@@ -141,7 +141,7 @@ export default function ResearcherAccountCreation() {
         <ModalContent mx={16} borderRadius={10}>
           <ModalHeader>Modal Title</ModalHeader>
           {/* <ModalCloseButton /> */}
-          <ModalBody>
+          {/* <ModalBody>
             <Text fontWeight="bold" mb="1rem">
               You can scroll the content behind the modal
             </Text>
@@ -158,9 +158,9 @@ export default function ResearcherAccountCreation() {
               Close
             </Button>
             {/* <Button variant='ghost'>Secondary Action</Button> */}
-          </ModalFooter>
+          {/* </ModalFooter>
         </ModalContent>
-      </Modal>
+      </Modal> */}
 
       <Button
         onClick={createResearcherAccount}
@@ -169,14 +169,14 @@ export default function ResearcherAccountCreation() {
         bottom={0}
         position={"absolute"}
         // marginTop={"4"}
-        loadingText="Creating"
+        loadingText="Creating your researcher account"
         borderRadius={"10"}
         width={"full"}
         bgColor={"#363062"}
         textColor={"white"}
         _hover={{
-          bgColor: "#F5E8C7",
-          textColor: "black",
+          bgColor: "#363062",
+          textColor: "white",
         }}
       >
         Create your researcher account

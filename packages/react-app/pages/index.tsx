@@ -49,18 +49,19 @@ export default function Home() {
       <Image
         // paddingY={8}
         // si={"300px"}
-        height={"250px"}
-        width={"250px"}
+        mt={10}
+        height={"200px"}
+        width={"200px"}
         src="/home.png"
         alt="Home image"
       />
-      <Text fontWeight={"bold"} fontSize={"24"} mt={12}>
+      <Text fontWeight={"bold"} fontSize={"28"} mt={12}>
         Welcome to Canvassing!
       </Text>
-      <Text fontSize={"16"}>opinions pay, today</Text>
+      <Text fontSize={"20"}>opinions pay, today</Text>
 
       <div className=" absolute bottom-0 mb-24 text-center w-full" >
-        <Text fontSize={"20"} marginTop={10} marginBottom={2}>
+        <Text fontSize={"18"} marginTop={10} marginBottom={2}>
           Continue as ...
         </Text>
 
