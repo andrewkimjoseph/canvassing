@@ -31,24 +31,9 @@ import NavLink from "./navLink";
 import { useAccount, useConnect } from "wagmi";
 import { injected } from "wagmi/connectors";
 import LogoLink from "./logoLink";
-const Links = [
-  {
-    title: "Onboarding",
-    href: "/",
-  },
-  {
-    title: "Participant Home",
-    href: "/participant",
-  },
-  {
-    title: "Researcher Home",
-    href: "/researcher",
-  },
-  // {
-  //   "title": "Approve Us",
-  //   "href": "/approve-us"
-  // },
-];
+import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
+import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
+
 
 export default function CanvassingNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,9 +41,27 @@ export default function CanvassingNavbar() {
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
 
+  const [participantExists, setParticipantExists] = useState(false);
+  const [researcherExists, setResearcherExists] = useState(false);
+
   const { connect } = useConnect();
 
   const [isMiniPay, setIsMiniPay] = useState(false);
+
+  const Links = [
+    {
+      title: "Onboarding",
+      href: "/",
+    },
+    {
+      title: "Participant View",
+      href: participantExists ? "/participant" : "/participant/account-creation",
+    },
+    {
+      title: "Researcher View",
+      href: researcherExists ? "/researcher" : "/researcher/become-one",
+    },
+  ];
 
   useEffect(() => {
     if (
@@ -70,8 +73,6 @@ export default function CanvassingNavbar() {
     }
   }, []);
 
-
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -81,6 +82,25 @@ export default function CanvassingNavbar() {
       setUserAddress(address);
     }
   }, [address, isConnected]);
+
+  useEffect(() => {
+    const checkIfParticipantExistsAndSet = async () => {
+      if (address) {
+        const doesParticipantExist = await checkIfParticipantExists(address);
+        setParticipantExists(doesParticipantExist);
+      }
+    };
+
+    const checkIfResearcherExistsAndSet = async () => {
+      if (address) {
+        const doesResearcherExist = await checkIfResearcherExists(address);
+        setResearcherExists(doesResearcherExist);
+      }
+    };
+
+    checkIfParticipantExistsAndSet();
+    checkIfResearcherExistsAndSet();
+  }, []);
 
   if (!isMounted) {
     return null;
@@ -140,7 +160,7 @@ export default function CanvassingNavbar() {
             /> */}
 
             {!isMiniPay ? (
-                   <ConnectButton
+              <ConnectButton
                 chainStatus="none"
                 accountStatus={{
                   smallScreen: "avatar",
@@ -153,8 +173,11 @@ export default function CanvassingNavbar() {
                 label="Connect"
               />
             ) : (
-     
-              <Circle size="10px" bg={`${isConnected ? "green" : "tomato"}`} color="white">
+              <Circle
+                size="10px"
+                bg={`${isConnected ? "green" : "tomato"}`}
+                color="white"
+              >
                 {/* <PhoneIcon /> */}
               </Circle>
             )}
