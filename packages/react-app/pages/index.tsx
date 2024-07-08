@@ -22,7 +22,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <div className="h1">
+            <div className="h1 text-center">
                 There you go... a canvas for your next Celo project!
             </div>
             {isConnected ? (
