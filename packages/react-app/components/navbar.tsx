@@ -34,9 +34,8 @@ import LogoLink from "./logoLink";
 import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 
-
 export default function CanvassingNavbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onToggle } = useDisclosure();
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
@@ -55,7 +54,9 @@ export default function CanvassingNavbar() {
     },
     {
       title: "Participant View",
-      href: participantExists ? "/participant" : "/participant/account-creation",
+      href: participantExists
+        ? "/participant"
+        : "/participant/become-one",
     },
     {
       title: "Researcher View",
@@ -118,7 +119,7 @@ export default function CanvassingNavbar() {
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon color={"black"} />}
             aria-label={"Open Menu"}
             display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
+            onClick={onToggle}
           />
           <HStack spacing={4} alignItems={"center"}>
             {/* <Box>Stekcit BwC</Box> */}
@@ -196,7 +197,6 @@ export default function CanvassingNavbar() {
             px={2}
             py={4}
             // borderTopRadius={20}
-            zIndex={0}
           >
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
