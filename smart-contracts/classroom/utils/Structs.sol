@@ -6,7 +6,8 @@ struct Researcher {
     uint256 id;
     address walletAddress;
     string industry;
-    uint256 yearOfIncorporation;
+    string numberOfEmployees;
+    string yearsInOperation;
     bool isParticipant;
     bool isVerified;
     bool isBlank;

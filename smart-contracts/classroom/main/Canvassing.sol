@@ -457,7 +457,8 @@ contract Canvassing {
     function createResearcher(
         address _walletAddress,
         string memory _industry,
-        uint256 _yearOfCorporation
+        string memory _numberOfEmployees,
+        string memory _yearsInOperation
     ) public {
         uint256 newResearcherId = currentResearcherId;
 
@@ -465,7 +466,8 @@ contract Canvassing {
         newResearcher.id = newResearcherId;
         newResearcher.walletAddress = _walletAddress;
         newResearcher.industry = _industry;
-        newResearcher.yearOfIncorporation = _yearOfCorporation;
+        newResearcher.numberOfEmployees = _numberOfEmployees;
+        newResearcher.yearsInOperation = _yearsInOperation;
         newResearcher.isVerified = false;
 
         //  Check if {_walletAddress} is a {Researcher}
@@ -656,6 +658,14 @@ contract Canvassing {
         return participantsOfSurvey[_surveyId];
     }
 
+    function getQuestionsOfSurvey(uint256 _surveyId)
+        public
+        view
+        returns (Question[] memory)
+    {
+        return allQuestions[_surveyId];
+    }
+
     function getAnswersOfSurvey(uint256 _surveyId)
         public
         view
@@ -680,6 +690,6 @@ contract Canvassing {
 //  Fifth:          0x3d5e1f13b84AE83025b2E8A0241ebf8d8b26af21
 //  Sixth:          0x82737595aC43c7432eb2285DA98D2Fd3D09f8957
 //  FINAL:          0x96DfF6919687F2103Ce71DDD17BC1B53292d1561
-//  ...
+//  FINAL 2:        0x05cF04DaCC70d128E383ea3c5E75DC1C11A5dcC3
 //  ...
 //  ...
