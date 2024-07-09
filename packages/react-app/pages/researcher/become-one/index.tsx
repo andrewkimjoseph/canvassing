@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import router from "next/router";
 import { createResearcher } from "@/services/createResearcher";
-export default function ResearcherAccountCreation() {
+export default function ResearcherBecomeOne() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
@@ -163,7 +163,14 @@ export default function ResearcherAccountCreation() {
       </Modal> */}
 
       <Button
-        onClick={createResearcherAccount}
+        // onClick={createResearcherAccount}
+
+        onClick={() =>
+          router.push(
+           "/researcher/become-one/success"
+            
+          )
+        }
         isLoading={creatingResearcher}
         mb={24}
         bottom={0}
