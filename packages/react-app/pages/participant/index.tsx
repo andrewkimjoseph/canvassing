@@ -15,6 +15,7 @@ import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 import router from "next/router";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+
 export default function ParticipantHome() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
@@ -75,16 +76,12 @@ export default function ParticipantHome() {
 
   return (
     <div className="flex flex-col items-left py-2 mx-4 h-svh relative">
-
-  
       <Text fontSize={"14"}>Welcome!</Text>
 
       <div className="flex flex-row justify-between w-full my-4 ">
-
-      <Text fontWeight={"bold"} fontSize={"20"}>
-            Participant {1}
-          </Text>
-     
+        <Text fontWeight={"bold"} fontSize={"20"}>
+          Participant {1}
+        </Text>
       </div>
 
       <div className="flex flex-row justify-between w-full mt-2 ">
@@ -93,7 +90,7 @@ export default function ParticipantHome() {
         </Text>
 
         <Button
-          // onClick={() => router.push("/researcher")}
+          onClick={() => router.push("/participant/view-taken-surveys")}
           // marginTop={"4"}
           borderRadius={"10"}
           width={"1/6"}
@@ -106,9 +103,6 @@ export default function ParticipantHome() {
         </Button>
       </div>
 
-
-
-
       <div className="flex flex-row justify-between w-full mt-6 mb-3 ">
         <Text fontWeight={"n"} fontSize={"18"}>
           Available surveys
@@ -116,8 +110,6 @@ export default function ParticipantHome() {
       </div>
 
       <Divider />
-
-
 
       {surveys.map((survey) => (
         <>
@@ -134,7 +126,7 @@ export default function ParticipantHome() {
             </div>
 
             <Button
-            //   onClick={() => router.push("/researcher")}
+                onClick={() => router.push("/participant/view-survey/1")}
               // marginTop={"4"}
               borderRadius={"10"}
               width={"1/6"}

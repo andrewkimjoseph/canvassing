@@ -61,7 +61,7 @@ export default function ResearcherCreateSurveyConfirm() {
         Go back
       </Text>
       <Text fontWeight={"bold"} fontSize={"20"} mt={2} mb={1}>
-        Confirm New Yes/No Survey
+        Confirm New True/False Survey
       </Text>
       {/* <Image
         // paddingY={8}

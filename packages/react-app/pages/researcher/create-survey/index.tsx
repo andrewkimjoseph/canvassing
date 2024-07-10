@@ -77,7 +77,7 @@ export default function ResearcherCreateSurvey() {
         Go back
       </Text>
       <Text fontWeight={"bold"} fontSize={"20"} mt={2} mb={1}>
-        New Yes/No Survey
+        New True/False Survey
       </Text>
       {/* <Image
         // paddingY={8}

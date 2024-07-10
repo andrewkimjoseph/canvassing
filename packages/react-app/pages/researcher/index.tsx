@@ -183,7 +183,7 @@ export default function ResearcherHome() {
             </div>
 
             <Button
-              onClick={() => router.push("/researcher")}
+              onClick={() => router.push("/researcher/created-surveys/1")}
               // marginTop={"4"}
               borderRadius={"10"}
               width={"1/6"}
