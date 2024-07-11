@@ -1,0 +1,1472 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allAnswers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "questionId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "participantWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "value",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allEarnings",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "recipientWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountPaidOutInWei",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allFundings",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "creatingResearcherWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountFundedInWei",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "allParticipants",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "walletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "gender",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "country",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "yearOfBirth",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalNumberOfSurveysTaken",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isResearcher",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allQuestions",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "sentence",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "allResearchers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "walletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "industry",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "yearOfIncorporation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isParticipant",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isVerified",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "allSurveys",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "creatingResearcherWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "topic",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfQuestions",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "targetNumberOfParticipants",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountFundedInWei",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "checkIfParticipantExists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_participantWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "checkIfParticipantHasAlreadyParticipatedInSurvey",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "checkIfResearcherExists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_numberOfQuestions",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_targetNumberOfParticipants",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_researcherWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "createFunding",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_gender",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_country",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_yearOfBirth",
+						"type": "uint256"
+					}
+				],
+				"name": "createParticipant",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_industry",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_yearOfCorporation",
+						"type": "uint256"
+					}
+				],
+				"name": "createResearcher",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_researcherWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "_topic",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_numberOfQuestions",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_targetNumberOfParticipants",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_questionSentences",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amountFundedForSurvey",
+						"type": "uint256"
+					}
+				],
+				"name": "createSurvey",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_participantWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getAllAnswersOfParticipantOfSurvey",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "questionId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "surveyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "participantWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "bool",
+								"name": "value",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Answer[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getAllEarningsMadeByParticipant",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "surveyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "recipientWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountPaidOutInWei",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Earning[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAllQuestionsOfSurvey",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "surveyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "sentence",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Question[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllSurveys",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "creatingResearcherWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "topic",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfQuestions",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "targetNumberOfParticipants",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountFundedInWei",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Survey[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getAllSurveysTakenByParticipant",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "creatingResearcherWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "topic",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfQuestions",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "targetNumberOfParticipants",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountFundedInWei",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Survey[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_numberOfParticipants",
+						"type": "uint256"
+					}
+				],
+				"name": "getAmountOfEarningForCanvassingForSurveyPerParticipantInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAmountOfEarningPerParticipantForSurveyInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_numberOfQuestions",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_targetNumberOfParticipants",
+						"type": "uint256"
+					}
+				],
+				"name": "getAmountOfFundingOfAnySurveyInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getAnswersOfSurvey",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "questionId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "surveyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "participantWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "bool",
+								"name": "value",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Answer[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getParticipantByWalletAddress",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "walletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "gender",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "country",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "yearOfBirth",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalNumberOfSurveysTaken",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isResearcher",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Participant",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getParticipantsOfSurvey",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "walletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "gender",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "country",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "yearOfBirth",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "totalNumberOfSurveysTaken",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isResearcher",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Participant[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getResearcherByWalletAddress",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "walletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "industry",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "yearOfIncorporation",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isParticipant",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isVerified",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Researcher",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					}
+				],
+				"name": "getSurveyById",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "creatingResearcherWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "topic",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfQuestions",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "targetNumberOfParticipants",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountFundedInWei",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Survey",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_researcherWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getSurveysCreatedByResearcher",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "creatingResearcherWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "topic",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "numberOfQuestions",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "targetNumberOfParticipants",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountFundedInWei",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Survey[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_creatingResearcherWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getTotalAmountFundedByResearchersInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getTotalAmountOfEarningsReceivedByParticipantInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_creatingResearcherWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getTotalNumberOfSurveyCreatedByResearcher",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_participantWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "makePayoutAndCreateEarning",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "participantsOfSurvey",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "walletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "gender",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "country",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "yearOfBirth",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalNumberOfSurveysTaken",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isResearcher",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "_participantWalletAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "bool[]",
+						"name": "_answerValues",
+						"type": "bool[]"
+					}
+				],
+				"name": "participateInSurvey",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "participationStatusForSurvey",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "payoutStatusOfParticipantForSurvey",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "totalAmountFundedByResearchersInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "totalNumberOfSurveysCreatedByResearchers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "verifyResearcher",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"smart-contracts/playground/main/Canvassing.sol": "Canvassing"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"smart-contracts/playground/main/Canvassing.sol": {
+			"keccak256": "0x53f06cbb25302dfa1348805ab5934b9b991c6ef9593d0fe598e584ab82bc0c0d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://56c5eb51cf5ee9bb457957090cbc907d37ec28638e58e9ef713fbb7b9241c849",
+				"dweb:/ipfs/QmbhW1WiMuJGvJK9ipH9WKbBZYU9DKoLvGshQuJyTnQvzK"
+			]
+		},
+		"smart-contracts/playground/utils/Interfaces.sol": {
+			"keccak256": "0x2031a934343c4a06d7f5a781de69e63bfd38f8a730ff784d4bf8faaf361bfe34",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://91a055c5d199254f55d04fce9c82e5d46f531c6b1907af8b8239ef707ea1ea2f",
+				"dweb:/ipfs/QmedQeKUYRHEkrLo2dEn1QGbWaJoyyfYgbah1MML9pEoPb"
+			]
+		},
+		"smart-contracts/playground/utils/Structs.sol": {
+			"keccak256": "0x9df71f76cd83831ba16fb3adcb7dad6074a66b3b03b4da05be94261a76d287ff",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3aa19e4e89d01737ac1b016fa341215e34cc83c9452d13c7e13b9672501b30ad",
+				"dweb:/ipfs/QmVthqQAARG6tJDR4CEuYmcTtneaodHFXN6sUhH1LhCdH6"
+			]
+		}
+	},
+	"version": 1
+}
