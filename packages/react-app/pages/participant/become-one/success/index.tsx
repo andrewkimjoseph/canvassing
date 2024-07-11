@@ -4,7 +4,7 @@ import { Button, Image, Text } from "@chakra-ui/react";
 import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 import router from "next/router";
-export default function Home() {
+export default function ParticipantBecomeOneSuccess() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
@@ -45,50 +45,27 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center py-2 mx-4 h-svh relative">
+    <div className="flex flex-col items-center py-2 mx-4 h-svh relative text-center ">
+      <Text fontWeight={"bold"} fontSize={"28"} mt={8}>
+        Account Creation Successful!
+      </Text>
       <Image
         // paddingY={8}
         // si={"300px"}
-        mt={10}
+        my={4}
         height={"200px"}
         width={"200px"}
-        src="/home.png"
+        src="/successParticipant.png"
         alt="Home image"
       />
-      <Text fontWeight={"bold"} fontSize={"28"} mt={12}>
-        Welcome to Canvassing!
+      <Text fontSize={"20"}>
+        Connect with data insight companies to drive user-centric brand and
+        business growth
       </Text>
-      <Text fontSize={"20"}>opinions pay, today</Text>
 
-      <div className=" absolute bottom-0 mb-24 text-center w-full" >
-        <Text fontSize={"18"} marginTop={10} marginBottom={2}>
-          Continue as ...
-        </Text>
-
+      <div className=" absolute bottom-0 mb-24 w-full">
         <Button
-          onClick={() =>
-            router.push(
-              participantExists
-                ? "/participant"
-                : "/participant/become-one"
-            )
-          }
-          width={"full"}
-          borderRadius={"10"}
-          bgColor={"#F5E8C7"}
-          textColor={"black"}
-          fontSize={"16px"}
-          
-        >
-          Participant
-        </Button>
-
-        <Button
-          onClick={() =>
-            router.push(
-              researcherExists ? "/researcher" : "/researcher/become-one"
-            )
-          }
+          onClick={() => router.push("/participant")}
           marginTop={"4"}
           borderRadius={"10"}
           width={"full"}
@@ -96,7 +73,7 @@ export default function Home() {
           textColor={"white"}
           fontSize={"16px"}
         >
-          Researcher
+          Start answering
         </Button>
       </div>
     </div>
