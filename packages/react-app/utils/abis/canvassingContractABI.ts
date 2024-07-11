@@ -1024,6 +1024,47 @@ export const canvassingContractABI =
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_surveyId",
+				"type": "uint256"
+			}
+		],
+		"name": "getQuestionsOfSurvey",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "surveyId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "sentence",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isBlank",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct Question[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "_walletAddress",
 				"type": "address"
@@ -1202,7 +1243,7 @@ export const canvassingContractABI =
 				"type": "address"
 			}
 		],
-		"name": "getTotalAmountFundedByResearchersInWei",
+		"name": "getTotalAmountFundedByResearcherInWei",
 		"outputs": [
 			{
 				"internalType": "uint256",

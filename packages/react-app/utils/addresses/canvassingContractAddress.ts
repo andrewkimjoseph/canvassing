@@ -1,2 +1,2 @@
 export const canvassingContractAddress: `0x${string}` =
-    "0x05cF04DaCC70d128E383ea3c5E75DC1C11A5dcC3"
+    "0x2323C0180c78149826C9a02ea8A675407C165CdA"
