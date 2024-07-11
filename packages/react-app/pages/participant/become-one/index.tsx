@@ -14,6 +14,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -59,7 +60,11 @@ export default function ParticipantBecomeOne() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
 
   return (

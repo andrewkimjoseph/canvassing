@@ -8,6 +8,7 @@ import {
   Circle,
   Divider,
   Image,
+  Spinner,
   Square,
   Text,
 } from "@chakra-ui/react";
@@ -71,9 +72,12 @@ export default function ParticipantHome() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
-
   return (
     <div className="flex flex-col items-left py-2 mx-4 h-svh relative">
       <Text fontSize={"14"}>Welcome!</Text>

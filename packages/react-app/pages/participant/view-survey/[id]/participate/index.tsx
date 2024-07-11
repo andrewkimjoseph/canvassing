@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
   Radio,
   RadioGroup,
+  Spinner,
   Square,
   Stack,
   Text,
@@ -86,9 +87,12 @@ export default function ParticipantParticularSurvey() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
-
   return (
     <div className="flex flex-col items-left py-2 mx-4 h-svh relative">
       <Text fontSize={"14"} onClick={() => router.back()}>

@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -68,7 +69,11 @@ export default function ResearcherCreateSurvey() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
 
   return (
@@ -116,7 +121,7 @@ export default function ResearcherCreateSurvey() {
 
           <Select
             bgColor={"#F5E8C7"}
-            value={yearsInOperation}
+            value={targetNumberOfParticipants}
             focusBorderColor="#363062"
             onChange={(event) => {
                 setTargetNumberOfParticipants(Number(event.target.value));

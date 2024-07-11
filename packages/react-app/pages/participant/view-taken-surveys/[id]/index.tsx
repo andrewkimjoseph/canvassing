@@ -8,6 +8,7 @@ import {
   Circle,
   Divider,
   Image,
+  Spinner,
   Square,
   Text,
 } from "@chakra-ui/react";
@@ -71,7 +72,11 @@ export default function ParticipantParticularTakenSurvey() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
 
   return (

@@ -13,6 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -42,7 +43,7 @@ export default function ResearcherBecomeOne() {
     });
 
     if (researcherIsCreated) {
-    } else {
+      await router.replace("/researcher/become-one/success");
     }
     setIsCreatingResearch(false);
   };
@@ -58,7 +59,11 @@ export default function ResearcherBecomeOne() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
 
   return (
@@ -76,7 +81,6 @@ export default function ResearcherBecomeOne() {
         src="/researcher.png"
         alt="Home image"
       />
-  
 
       <Text fontWeight={"bold"} fontSize={"16"} mt={1} mb={1}>
         Select Details
@@ -128,49 +132,8 @@ export default function ResearcherBecomeOne() {
         </Select>
       </Stack>
 
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
-      {/* <Modal
-        blockScrollOnMount={false}
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        
-      >
-        <ModalOverlay />
-        <ModalContent mx={16} borderRadius={10}>
-          <ModalHeader>Modal Title</ModalHeader>
-          {/* <ModalCloseButton /> */}
-          {/* <ModalBody>
-            <Text fontWeight="bold" mb="1rem">
-              You can scroll the content behind the modal
-            </Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              bgColor={"black"}
-              color={"white"}
-              onClick={onClose}
-              width={"full"}
-              borderRadius={10}
-            >
-              Close
-            </Button>
-            {/* <Button variant='ghost'>Secondary Action</Button> */}
-          {/* </ModalFooter>
-        </ModalContent>
-      </Modal> */}
-
       <Button
-        // onClick={createResearcherAccount}
-
-        onClick={() =>
-          router.push(
-           "/researcher/become-one/success"
-            
-          )
-        }
+        onClick={createResearcherAccount}
         isLoading={creatingResearcher}
         mb={24}
         bottom={0}
