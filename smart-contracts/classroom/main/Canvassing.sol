@@ -499,7 +499,7 @@ contract Canvassing {
             ];
     }
 
-    function getTotalAmountFundedByResearchersInWei(
+    function getTotalAmountFundedByResearcherInWei(
         address _creatingResearcherWalletAddress
     ) public view returns (uint256) {
         return
