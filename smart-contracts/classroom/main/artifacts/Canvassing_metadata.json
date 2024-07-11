@@ -1248,7 +1248,7 @@
 						"type": "address"
 					}
 				],
-				"name": "getTotalAmountFundedByResearchersInWei",
+				"name": "getTotalAmountFundedByResearcherInWei",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -1544,11 +1544,11 @@
 	},
 	"sources": {
 		"smart-contracts/classroom/main/Canvassing.sol": {
-			"keccak256": "0x89549ef6a2d8d4ce6195623ae98680f93da25cd3912ea812e1b8e31c6bf40429",
+			"keccak256": "0xb6941a00b8bae5f327dafdcfec1091ef06e862dc17441c4e4143c4fc11a0ef20",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c3d987fbf6c3c84afc5858a2077f340093ab02296ef88dce305593cca2bba3fd",
-				"dweb:/ipfs/QmS565yWEXcaYz93vr9pNExW2F4NcUFeCaaGJZL7Yp1PwK"
+				"bzz-raw://ff1f17f7727e8d8a0893c6c1659df98bc568df83b15e3d02e9115b54b9027082",
+				"dweb:/ipfs/QmWsKoziWZkeWJfeubCzYMafm5NXTGKv4ngF1HzMV44TMa"
 			]
 		},
 		"smart-contracts/classroom/utils/Interfaces.sol": {
