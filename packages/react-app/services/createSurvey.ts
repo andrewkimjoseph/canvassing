@@ -9,14 +9,16 @@ import {
 } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createResearcher = async (
+export const createSurvey = async (
   _signerAddress: `0x${string}` | undefined,
   {
-    _walletAddress,
-    _industry,
-    _numberOfEmployees,
-    _yearsInOperation,
-  }: CreateResearcherProps
+    _researcherWalletAddress,
+    _topic,
+    _numberOfQuestions,
+    _targetNumberOfParticipants,
+    _questionSentences,
+    _amountFundedForSurvey,
+  }: CreateSurveyProps
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
@@ -29,25 +31,28 @@ export const createResearcher = async (
     });
     const [address] = await privateClient.getAddresses();
     try {
-      const createResearcherTxnHash = await privateClient.writeContract({
+      const createSurveyTxnHash = await privateClient.writeContract({
         account: address,
         address: canvassingContractAddress,
         abi: canvassingContractABI,
-        functionName: "createResearcher",
+        functionName: "createSurvey",
         args: [
-          _walletAddress,
-          _industry,
-          _numberOfEmployees,
-          _yearsInOperation,
+          _researcherWalletAddress,
+          _topic,
+          _numberOfQuestions,
+          _targetNumberOfParticipants,
+          _questionSentences,
+          _amountFundedForSurvey,
         ],
       });
 
-      const createResearcherTxnReceipt =
-        await publicClient.waitForTransactionReceipt({
-          hash: createResearcherTxnHash,
-        });
+      const createSurveyTxnReceipt = await publicClient.waitForTransactionReceipt(
+        {
+          hash: createSurveyTxnHash,
+        }
+      );
 
-      if (createResearcherTxnReceipt.status == "success") {
+      if (createSurveyTxnReceipt.status == "success") {
         return true;
       } else {
         return false;
@@ -60,9 +65,11 @@ export const createResearcher = async (
   return false;
 };
 
-export type CreateResearcherProps = {
-  _walletAddress: `0x${string}`;
-  _industry: string;
-  _numberOfEmployees: string;
-  _yearsInOperation: string;
+export type CreateSurveyProps = {
+  _researcherWalletAddress: `0x${string}`;
+  _topic: string;
+  _numberOfQuestions: number;
+  _targetNumberOfParticipants: number;
+  _questionSentences: string[];
+  _amountFundedForSurvey: number;
 };

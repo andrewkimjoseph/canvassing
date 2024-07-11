@@ -9,14 +9,9 @@ import {
 } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createResearcher = async (
+export const createParticipant = async (
   _signerAddress: `0x${string}` | undefined,
-  {
-    _walletAddress,
-    _industry,
-    _numberOfEmployees,
-    _yearsInOperation,
-  }: CreateResearcherProps
+  { _walletAddress, _gender, _country, _yearOfBirth }: CreateParticipantProps
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
@@ -29,25 +24,20 @@ export const createResearcher = async (
     });
     const [address] = await privateClient.getAddresses();
     try {
-      const createResearcherTxnHash = await privateClient.writeContract({
+      const createParticipantTxnHash = await privateClient.writeContract({
         account: address,
         address: canvassingContractAddress,
         abi: canvassingContractABI,
-        functionName: "createResearcher",
-        args: [
-          _walletAddress,
-          _industry,
-          _numberOfEmployees,
-          _yearsInOperation,
-        ],
+        functionName: "createParticipant",
+        args: [_walletAddress, _gender, _country, _yearOfBirth],
       });
 
-      const createResearcherTxnReceipt =
+      const createParticipantTxnReceipt =
         await publicClient.waitForTransactionReceipt({
-          hash: createResearcherTxnHash,
+          hash: createParticipantTxnHash,
         });
 
-      if (createResearcherTxnReceipt.status == "success") {
+      if (createParticipantTxnReceipt.status == "success") {
         return true;
       } else {
         return false;
@@ -60,9 +50,9 @@ export const createResearcher = async (
   return false;
 };
 
-export type CreateResearcherProps = {
+export type CreateParticipantProps = {
   _walletAddress: `0x${string}`;
-  _industry: string;
-  _numberOfEmployees: string;
-  _yearsInOperation: string;
+  _gender: string;
+  _country: string;
+  _yearOfBirth: number;
 };

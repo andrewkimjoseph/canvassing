@@ -9,14 +9,12 @@ import {
 } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createResearcher = async (
+export const makePayoutAndCreateEarning = async (
   _signerAddress: `0x${string}` | undefined,
   {
-    _walletAddress,
-    _industry,
-    _numberOfEmployees,
-    _yearsInOperation,
-  }: CreateResearcherProps
+    _surveyId,
+    _participantWalletAddress,
+  }: MakePayoutAndCreateEarningProps
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
@@ -29,25 +27,20 @@ export const createResearcher = async (
     });
     const [address] = await privateClient.getAddresses();
     try {
-      const createResearcherTxnHash = await privateClient.writeContract({
+      const makePayoutAndCreateEarningTxnHash = await privateClient.writeContract({
         account: address,
         address: canvassingContractAddress,
         abi: canvassingContractABI,
-        functionName: "createResearcher",
-        args: [
-          _walletAddress,
-          _industry,
-          _numberOfEmployees,
-          _yearsInOperation,
-        ],
+        functionName: "makePayoutAndCreateEarning",
+        args: [_surveyId, _participantWalletAddress],
       });
 
-      const createResearcherTxnReceipt =
+      const makePayoutAndCreateEarningTxnReceipt =
         await publicClient.waitForTransactionReceipt({
-          hash: createResearcherTxnHash,
+          hash: makePayoutAndCreateEarningTxnHash,
         });
 
-      if (createResearcherTxnReceipt.status == "success") {
+      if (makePayoutAndCreateEarningTxnReceipt.status == "success") {
         return true;
       } else {
         return false;
@@ -60,9 +53,7 @@ export const createResearcher = async (
   return false;
 };
 
-export type CreateResearcherProps = {
-  _walletAddress: `0x${string}`;
-  _industry: string;
-  _numberOfEmployees: string;
-  _yearsInOperation: string;
+export type MakePayoutAndCreateEarningProps = {
+  _surveyId: number;
+  _participantWalletAddress: `0x${string}`;
 };
