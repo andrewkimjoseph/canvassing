@@ -35,18 +35,21 @@ import React from "react";
 import { fonts } from "@/fonts/fonts";
 import { payForVerification } from "@/services/payForVerification";
 import { getTotalAmountFundedByResearcherInWei } from "@/services/getTotalAmountFundedByResearcherInWei";
+import { parseAmountInWeiToEther } from "@/services/parseWeiAmount";
 export default function ResearcherHome() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
   const initRef = React.useRef(null);
   const [participantExists, setParticipantExists] = useState(false);
-  const [totalAmountFundedByResearcherInWei, setTotalAmountFundedByResearcherInWei] = useState(0);
+  const [
+    totalAmountFundedByResearcherInWei,
+    setTotalAmountFundedByResearcherInWei,
+  ] = useState(0);
   const [allSurveysCreatedByResearcher, setAllSurveysCreatedByResearcher] =
     useState<Survey[]>([]);
 
-
-    const [researcherExists, setResearcherExists] = useState(false);
+  const [researcherExists, setResearcherExists] = useState(false);
   const toast = useToast();
   const [researcher, setResearcher] = useState<Researcher | null>(null);
   const [isVerifyingResearcher, setIsVerifyingResearcher] = useState(false);
@@ -124,13 +127,14 @@ export default function ResearcherHome() {
       setAllSurveysCreatedByResearcher(fetchedSurveysCreatedByResearcher);
     };
 
-
     const getTotalAmountFundedByResearcherInWeiFn = async () => {
       const fetchedTotalAmountFundedByResearcherInWei =
         await getTotalAmountFundedByResearcherInWei(address, {
           _creatingResearcherWalletAddress: address as `0x${string}`,
         });
-        setTotalAmountFundedByResearcherInWei(fetchedTotalAmountFundedByResearcherInWei);
+      setTotalAmountFundedByResearcherInWei(
+        fetchedTotalAmountFundedByResearcherInWei
+      );
     };
 
     fetchResearcherByWalletAddress();
@@ -150,12 +154,10 @@ export default function ResearcherHome() {
   if (!isMounted) {
     return (
       <div className="flex flex-col justify-center h-screen items-center mb-24">
-      <Spinner/>
-    </div>
+        <Spinner />
+      </div>
     );
   }
-
-
 
   return (
     <div className="flex flex-col items-left py-2 mx-4 h-svh relative">
@@ -279,7 +281,7 @@ export default function ResearcherHome() {
           fontWeight={"bold"}
           fontSize={"14px"}
         >
-          {totalAmountFundedByResearcherInWei} cUSD
+          {parseAmountInWeiToEther(totalAmountFundedByResearcherInWei)} cUSD
         </Button>
       </div>
 
@@ -321,7 +323,7 @@ export default function ResearcherHome() {
             key={survey.id}
           >
             <Avatar
-              name={`S${survey.id}`}
+              name={`S ${survey.id}`}
               color={"black"}
               bgColor={"#F5E8C7"}
             />
@@ -347,8 +349,12 @@ export default function ResearcherHome() {
             >
               {survey.numberOfQuestions} Qs
             </Button>
-            <Divider />
+
+        
           </div>
+
+          <Divider />
+
         </>
       ))}
     </div>

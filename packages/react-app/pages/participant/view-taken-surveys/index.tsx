@@ -16,54 +16,82 @@ import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 import router from "next/router";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Participant } from "@/entities/Participant";
+import { Earning } from "@/entities/Earning";
+import { Survey } from "@/entities/Survey";
+import { getParticipantByWalletAddress } from "@/services/getParticipantByWalletAddress";
+import { getAllEarningsMadeByParticipant } from "@/services/getAllEarningsMadeByParticipant";
+import { getAllSurveys } from "@/services/getAllSurveys";
+import { parseAmountInWeiToEther } from "@/services/parseWeiAmount";
+import { getSurveyById } from "@/services/getSurveyById";
 
 export default function ParticipantTakenSurveys() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
-  const [participantExists, setParticipantExists] = useState(false);
-  const [researcherExists, setResearcherExists] = useState(false);
+  const [participant, setParticipant] = useState<Participant | null>(null);
 
-  const surveys = [
-    {
-      id: 0,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 1,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 2,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-  ];
+  const [allEarningsMadeByParticipant, setAllEarningsMadeByParticipant] =
+    useState<Earning[]>([]);
 
+  const [allSurveys, setAllSurveys] = useState<Survey[]>([]);
+
+  const [allSurveysTakenByParticipant, setAllSurveysTakenByParticipant] =
+    useState<Survey[]>([]);
+
+  useEffect(() => {
+    const getAllSurveysTakenByParticipant = async () => {
+      const fetchedSurveys: Survey[] = [];
+
+      const allEarnings = await getAllEarningsMadeByParticipant(address, {
+        _walletAddress: address as `0x${string}`
+      })
+      for (let earningId = 0; earningId < allSurveys.length; earningId++) {
+        const earning = allEarnings[earningId];
+
+        fetchedSurveys.push(
+          (await getSurveyById(address, {
+            _surveyId: earning.surveyId,
+          })) as Survey
+        );
+      }
+
+      setAllSurveysTakenByParticipant(fetchedSurveys);
+    };
+
+    getAllSurveysTakenByParticipant();
+  }, [allSurveys, allEarningsMadeByParticipant]);
+  
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    const checkIfParticipantExistsAndSet = async () => {
-      if (address) {
-        const doesParticipantExist = await checkIfParticipantExists(address);
-        setParticipantExists(doesParticipantExist);
-      }
+    const fetchParticipantByWalletAddress = async () => {
+      const fetchedParticipant = await getParticipantByWalletAddress(address, {
+        _walletAddress: address as `0x${string}`,
+      });
+
+      setParticipant(fetchedParticipant);
     };
 
-    const checkIfResearcherExistsAndSet = async () => {
-      if (address) {
-        const doesResearcherExist = await checkIfResearcherExists(address);
-        setResearcherExists(doesResearcherExist);
-      }
+    const fetchAllEarningsMadeByParticipant = async () => {
+      const fetchedEarnings = await getAllEarningsMadeByParticipant(address, {
+        _walletAddress: address as `0x${string}`,
+      });
+
+      setAllEarningsMadeByParticipant(fetchedEarnings);
     };
 
-    checkIfParticipantExistsAndSet();
-    checkIfResearcherExistsAndSet();
-  }, []);
+    const getAllSurveysFn = async () => {
+      const fetchedSurveys = await getAllSurveys(address);
+      setAllSurveys(fetchedSurveys);
+    };
+
+    getAllSurveysFn();
+    fetchParticipantByWalletAddress();
+    fetchAllEarningsMadeByParticipant();
+  }, [allEarningsMadeByParticipant, allSurveys]);
 
   useEffect(() => {
     if (isConnected && address) {
@@ -74,8 +102,8 @@ export default function ParticipantTakenSurveys() {
   if (!isMounted) {
     return (
       <div className="flex flex-col justify-center h-screen items-center mb-24">
-      <Spinner/>
-    </div>
+        <Spinner />
+      </div>
     );
   }
 
@@ -105,7 +133,7 @@ export default function ParticipantTakenSurveys() {
           fontWeight={"bold"}
           fontSize={"14px"}
         >
-          4
+          {allEarningsMadeByParticipant.length}
         </Button>
       </div>
 
@@ -124,7 +152,14 @@ export default function ParticipantTakenSurveys() {
           fontWeight={"bold"}
           fontSize={"14px"}
         >
-          4 cUSD
+          {parseAmountInWeiToEther(
+            allEarningsMadeByParticipant.reduce(
+              (runningTotal, currentEarning) =>
+                runningTotal + currentEarning.amountPaidOutInWei,
+              0
+            )
+          )}{" "}
+          cUSD
         </Button>
       </div>
 
@@ -132,10 +167,22 @@ export default function ParticipantTakenSurveys() {
 
       <Divider />
 
-      {surveys.map((survey) => (
-        <>
+      {allSurveysTakenByParticipant.length === 0 && (
+        <Box>
+          <Text pt="2" fontStyle={"italic"}>
+            ... will show here
+          </Text>
+        </Box>
+      )}
+
+      {allSurveysTakenByParticipant.map((survey) => (
+        <div key={survey.id}>
           <div className="flex flex-row justify-between w-full my-4">
-            <Avatar name="Dan Abrahmov" color={"black"} bgColor={"#F5E8C7"} />
+            <Avatar
+              name={`S ${survey.id}`}
+              color={"black"}
+              bgColor={"#F5E8C7"}
+            />
 
             <div className="flex flex-col absolute left-10 ml-6">
               <Text fontWeight={"n"} fontSize={"14px"}>
@@ -147,7 +194,9 @@ export default function ParticipantTakenSurveys() {
             </div>
 
             <Button
-              onClick={() => router.push("/participant/view-taken-surveys/1")}
+              onClick={() =>
+                router.push(`/participant/view-taken-surveys/${survey.id}`)
+              }
               // marginTop={"4"}
               borderRadius={"10"}
               width={"1/6"}
@@ -160,7 +209,7 @@ export default function ParticipantTakenSurveys() {
             </Button>
           </div>
           <Divider />
-        </>
+        </div>
       ))}
     </div>
   );

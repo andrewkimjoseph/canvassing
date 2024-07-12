@@ -84,18 +84,6 @@ export default function ResearcherCreateSurvey() {
       <Text fontWeight={"bold"} fontSize={"20"} mt={2} mb={1}>
         New True/False Survey
       </Text>
-      {/* <Image
-        // paddingY={8}
-        height={"200px"}
-        width={"200px"}
-        src="/researcher.png"
-        alt="Home image"
-      />
-   */}
-
-      {/* <Text fontWeight={"bold"} fontSize={"16"} mt={1} mb={1}>
-        Select Details
-      </Text> */}
 
       <Stack spacing={1}>
         <Box className="flex flex-col justify-between w-full mt-2 ">
@@ -131,13 +119,6 @@ export default function ResearcherCreateSurvey() {
             <option value="5">7</option>
             <option value="9">9</option>
           </Select>
-          {/* <Input
-            variant="outline"
-            borderColor={"#C0D6E8"}
-            placeholder="Flushed"
-            focusBorderColor="#F5E8C7"
-            bgColor={""}
-          /> */}
         </Box>
         <Box className="flex flex-col justify-between w-full mt-2 ">
           <Text fontSize={"12"} mb={1}>
@@ -186,43 +167,7 @@ export default function ResearcherCreateSurvey() {
         </Box>
       </Stack>
 
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
-      {/* <Modal
-        blockScrollOnMount={false}
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        
-      >
-        <ModalOverlay />
-        <ModalContent mx={16} borderRadius={10}>
-          <ModalHeader>Modal Title</ModalHeader>
-          {/* <ModalCloseButton /> */}
-      {/* <ModalBody>
-            <Text fontWeight="bold" mb="1rem">
-              You can scroll the content behind the modal
-            </Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              bgColor={"black"}
-              color={"white"}
-              onClick={onClose}
-              width={"full"}
-              borderRadius={10}
-            >
-              Close
-            </Button>
-            {/* <Button variant='ghost'>Secondary Action</Button> */}
-      {/* </ModalFooter>
-        </ModalContent>
-      </Modal> */}
-
       <Button
-        // onClick={createResearcherAccount}
-
         onClick={() =>
           router.push({
             pathname: "/researcher/create-survey/confirm",

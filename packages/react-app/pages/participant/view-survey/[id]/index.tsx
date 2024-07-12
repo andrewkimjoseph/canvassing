@@ -27,55 +27,89 @@ import {
 } from "@chakra-ui/react";
 import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Researcher } from "@/entities/Researcher";
+import { getResearcherByWalletAddress } from "@/services/getResearcherByWalletAddress";
+import { Survey } from "@/entities/Survey";
+import { Question } from "@/entities/Question";
+import { getSurveyById } from "@/services/getSurveyById";
+import { getQuestionsOfSurvey } from "@/services/getQuestionsOfSurvey";
+import { getAmountOfEarningPerParticipantForSurveyInWei } from "@/services/getAmountOfEarningPerParticipantForSurveyInWei";
+import { parseAmountInWeiToEther } from "@/services/parseWeiAmount";
+import { makePayoutAndCreateEarning } from "@/services/makePayoutAndCreateEarning";
+import { participateInSurvey } from "@/services/participateInSurvey";
+import { checkIfParticipantHasAlreadyParticipatedInSurvey } from "@/services/checkIfParticipantHasAlreadyParticipatedInSurvey";
 
 export default function ParticipantParticularSurvey() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
-  const [participantExists, setParticipantExists] = useState(false);
-  const [researcherExists, setResearcherExists] = useState(false);
 
-  const surveys = [
-    {
-      id: 0,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 1,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 2,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-  ];
+  const [researcherOfSurvey, setResearcherOfSurvey] =
+    useState<Researcher | null>(null);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+
+
+    const [hasParticipated, setHasParticipated] = useState(false);
+    //   //checkIfParticipantHasAlreadyParticipatedInSurvey
+
+  const [allQuestionsOfSurvey, setAllQuestionsOfSurvey] = useState<Question[]>(
+    []
+  );
+
+  const [amountOfEarningPerParticipant, setAmountOfEarningPerParticipant] =
+    useState(0);
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  const surveyId: number = Number(id);
 
   useEffect(() => {
-    const checkIfParticipantExistsAndSet = async () => {
-      if (address) {
-        const doesParticipantExist = await checkIfParticipantExists(address);
-        setParticipantExists(doesParticipantExist);
-      }
+    const fetchResearcherOfSurveyByWalletAddress = async () => {
+      const fetchedResearcherOfSurvey = await getResearcherByWalletAddress(
+        address,
+        {
+          _walletAddress: address as `0x${string}`,
+        }
+      );
+
+      setResearcherOfSurvey(fetchedResearcherOfSurvey);
     };
 
-    const checkIfResearcherExistsAndSet = async () => {
-      if (address) {
-        const doesResearcherExist = await checkIfResearcherExists(address);
-        setResearcherExists(doesResearcherExist);
-      }
+
+    const fetchQuestionsOfSurvey = async () => {
+      const fetchedQuestions = await getQuestionsOfSurvey(address, {
+        _surveyId: surveyId,
+      });
+
+      setAllQuestionsOfSurvey(fetchedQuestions);
     };
 
-    checkIfParticipantExistsAndSet();
-    checkIfResearcherExistsAndSet();
+    const getAmountOfPotentialEarningsOfSurvey = async () => {
+      const fetchedAmount =
+        await getAmountOfEarningPerParticipantForSurveyInWei(address, {
+          _surveyId: surveyId,
+        });
+
+      setAmountOfEarningPerParticipant(fetchedAmount);
+    };
+
+
+    const checkIfHasParticipated = async () => {
+      const hasParticipated =
+        await checkIfParticipantHasAlreadyParticipatedInSurvey(address, {
+          _participantWalletAddress: address as `0x${string}`,
+          _surveyId: surveyId,
+        });
+
+      setHasParticipated(hasParticipated);
+    };
+    fetchResearcherOfSurveyByWalletAddress();
+    fetchQuestionsOfSurvey();
+    getAmountOfPotentialEarningsOfSurvey();
+    checkIfHasParticipated();
   }, []);
 
   useEffect(() => {
@@ -84,11 +118,15 @@ export default function ParticipantParticularSurvey() {
     }
   }, [address, isConnected]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   if (!isMounted) {
     return (
       <div className="flex flex-col justify-center h-screen items-center mb-24">
-      <Spinner/>
-    </div>
+        <Spinner />
+      </div>
     );
   }
 
@@ -100,20 +138,23 @@ export default function ParticipantParticularSurvey() {
 
       <div className="flex flex-row w-full my-2">
         <Text fontWeight={"bold"} fontSize={"20"}>
-          Survey {2}
+          Survey {surveyId}
         </Text>
 
         <Popover>
           <PopoverTrigger>
-            <Square size="25px" color="white" ml={2} mt={1}>
-              <Image my={4} src="/checkmark.png" alt="Home image" />
-            </Square>
+            <Box>
+              {researcherOfSurvey?.isVerified && (
+                <Square size="25px" color="white" ml={2} mt={1}>
+                  <Image my={4} src="/checkmark.png" alt="Home image" />
+                </Square>
+              )}
+            </Box>
           </PopoverTrigger>
-          <PopoverContent>
-            <PopoverArrow />
-            {/* <PopoverCloseButton /> */}
-            {/* <PopoverHeader>Confirmation!</PopoverHeader> */}
-            <PopoverBody>Reseacher of this survey is verified</PopoverBody>
+          <PopoverContent color="#363062" bg="#c0d6e8">
+            <PopoverArrow bg="#c0d6e8" />
+
+            <PopoverBody>Reseacher is verified</PopoverBody>
           </PopoverContent>
         </Popover>
       </div>
@@ -124,16 +165,15 @@ export default function ParticipantParticularSurvey() {
         </Text>
 
         <Button
-          // onClick={() => router.push("/researcher")}
-          // marginTop={"4"}
+          onClick={() => {}}
           borderRadius={"10"}
           width={"1/6"}
-          bgColor={"#F5E8C7"}
+          bgColor={"#C0D6E8"}
           textColor={"black"}
           fontWeight={"bold"}
           fontSize={"14px"}
         >
-          3
+          {allQuestionsOfSurvey.length}
         </Button>
       </div>
 
@@ -152,7 +192,7 @@ export default function ParticipantParticularSurvey() {
           fontWeight={"bold"}
           fontSize={"14px"}
         >
-          4 cUSD
+          {parseAmountInWeiToEther(amountOfEarningPerParticipant)} cUSD
         </Button>
       </div>
 
@@ -163,13 +203,13 @@ export default function ParticipantParticularSurvey() {
       </Text>
 
       <Accordion allowToggle>
-        {surveys.map((survey) => (
-          <>
+        {allQuestionsOfSurvey.map((question) => (
+          <div key={question.id}>
             <AccordionItem>
               <AccordionButton>
                 <div className="flex flex-row justify-between w-full">
                   <Box as="span" textAlign="left">
-                    Question 1
+                    Question {allQuestionsOfSurvey.indexOf(question) + 1}
                   </Box>
                   <AccordionIcon />
                 </div>
@@ -177,25 +217,25 @@ export default function ParticipantParticularSurvey() {
 
               <AccordionPanel pb={4}>
                 <Text fontWeight={"n"} fontStyle={"italic"} fontSize={"16px"}>
-                  Lorem ipsum dolor sit amet
+                  {question.sentence}
                 </Text>
               </AccordionPanel>
             </AccordionItem>
 
             <Divider />
-          </>
+          </div>
         ))}
       </Accordion>
 
       <Button
         // onClick={createResearcherAccount}
 
-        onClick={() => router.push("/participant/view-survey/1/participate")}
+        onClick={() => router.push(`/participant/view-survey/${surveyId}/participate`)}
         // isLoading={creatingResearcher}
         mb={24}
         bottom={0}
         position={"absolute"}
-        // marginTop={"4"}
+        isDisabled={hasParticipated}
         loadingText="Creating your researcher account"
         borderRadius={"10"}
         width={"full"}
@@ -206,7 +246,7 @@ export default function ParticipantParticularSurvey() {
           textColor: "white",
         }}
       >
-        Participate
+        {`${hasParticipated ? "Already participated" : "Participate"}`}
       </Button>
     </div>
   );

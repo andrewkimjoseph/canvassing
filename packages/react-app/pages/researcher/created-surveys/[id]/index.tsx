@@ -78,14 +78,16 @@ export default function ResearcherParticularCreatedSurveyView() {
   if (!isMounted) {
     return (
       <div className="flex flex-col justify-center h-screen items-center mb-24">
-      <Spinner/>
-    </div>
+        <Spinner />
+      </div>
     );
   }
 
   return (
     <div className="flex flex-col items-left py-2 mx-4 h-svh relative">
-
+      <Text fontSize={"14"} onClick={() => router.back()}>
+        Back
+      </Text>
 
       <div className="flex flex-row justify-between w-full my-2 ">
         <div className="flex flex-row w-full ">
@@ -156,8 +158,6 @@ export default function ResearcherParticularCreatedSurveyView() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-
-
 
       <Text fontWeight={"bold"} fontSize={"20"} my={3}>
         Survey Feedback

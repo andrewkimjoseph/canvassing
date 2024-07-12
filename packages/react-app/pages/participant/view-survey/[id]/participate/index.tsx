@@ -26,58 +26,150 @@ import {
   Square,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Researcher } from "@/entities/Researcher";
+import { Survey } from "@/entities/Survey";
+import { Question } from "@/entities/Question";
+import { getAmountOfEarningPerParticipantForSurveyInWei } from "@/services/getAmountOfEarningPerParticipantForSurveyInWei";
+import { getQuestionsOfSurvey } from "@/services/getQuestionsOfSurvey";
+import { getResearcherByWalletAddress } from "@/services/getResearcherByWalletAddress";
+import { getSurveyById } from "@/services/getSurveyById";
+import { participateInSurvey } from "@/services/participateInSurvey";
+import { makePayoutAndCreateEarning } from "@/services/makePayoutAndCreateEarning";
 
 export default function ParticipantParticularSurvey() {
   const [userAddress, setUserAddress] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
-  const [participantExists, setParticipantExists] = useState(false);
-  const [researcherExists, setResearcherExists] = useState(false);
+  const toast = useToast();
 
-  const surveys = [
-    {
-      id: 0,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 1,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-    {
-      id: 2,
-      topic: "Minipay UX",
-      numberOfQuestions: 2,
-    },
-  ];
+  const [allQuestionsOfSurvey, setAllQuestionsOfSurvey] = useState<Question[]>(
+    []
+  );
+
+  const [survey, setSurvey] = useState<Survey | null>(null);
+
+  const [isCompleting, setIsCompleting] = useState(false);
+
+
+
+  let answerToQuestions: { [key: number]: string } = {};
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  const surveyId: number = Number(id);
+
+  const getAnswerValues = async () => {
+    let answerValues: boolean[] = [];
+
+    for (let answerId = 0; answerId < allQuestionsOfSurvey.length; answerId++) {
+      if (answerToQuestions[answerId]) {
+        answerValues.push(
+          answerToQuestions[answerId] === "true" ? true : false
+        );
+      }
+    }
+
+    return answerValues;
+  };
+
+  const onClickComplete = async () => {
+    setIsCompleting(true);
+
+    if ((await getAnswerValues()).length === 0) {
+      toast({
+        description: "Answer at least one question",
+        status: "info",
+        duration: 4000,
+        isClosable: true,
+        position: "top",
+      });
+
+      setIsCompleting(false);
+      return;
+    }
+
+    if ((await getAnswerValues()).length < allQuestionsOfSurvey.length) {
+      toast({
+        description: "Answer all questions",
+        status: "info",
+        duration: 4000,
+        isClosable: true,
+        position: "top",
+      });
+
+      setIsCompleting(false);
+
+      return;
+    }
+
+    const participantHasParticipatedInSurvey = await participateInSurvey(
+      address,
+      {
+        _surveyId: surveyId,
+        _participantWalletAddress: address as `0x${string}`,
+        _answerValues: await getAnswerValues(),
+      }
+    );
+
+    if (participantHasParticipatedInSurvey) {
+      const payoutIsMadeAndEarningIsCreated = await makePayoutAndCreateEarning(
+        address,
+        {
+          _surveyId: surveyId,
+          _participantWalletAddress: address as `0x${string}`,
+        }
+      );
+
+      if (payoutIsMadeAndEarningIsCreated) {
+        toast({
+          description:
+            "Participation successful. Check your balance for earnings!",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+          position: "top",
+        });
+        setIsCompleting(false);
+        router.replace("/participant");
+      }
+    } else {
+      toast({
+        description: "Survey participation failed/cancelled.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+        position: "top",
+      });
+      setIsCompleting(false);
+    }
+  };
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const fetchCurrentSurvey = async () => {
+      const fetchedSurvey = await getSurveyById(address, {
+        _surveyId: surveyId,
+      });
 
-  useEffect(() => {
-    const checkIfParticipantExistsAndSet = async () => {
-      if (address) {
-        const doesParticipantExist = await checkIfParticipantExists(address);
-        setParticipantExists(doesParticipantExist);
-      }
+      setSurvey(fetchedSurvey);
     };
 
-    const checkIfResearcherExistsAndSet = async () => {
-      if (address) {
-        const doesResearcherExist = await checkIfResearcherExists(address);
-        setResearcherExists(doesResearcherExist);
-      }
+    const fetchQuestionsOfSurvey = async () => {
+      const fetchedQuestions = await getQuestionsOfSurvey(address, {
+        _surveyId: surveyId,
+      });
+
+      setAllQuestionsOfSurvey(fetchedQuestions);
     };
 
-    checkIfParticipantExistsAndSet();
-    checkIfResearcherExistsAndSet();
+    fetchCurrentSurvey();
+    fetchQuestionsOfSurvey();
   }, []);
 
   useEffect(() => {
@@ -86,11 +178,15 @@ export default function ParticipantParticularSurvey() {
     }
   }, [address, isConnected]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   if (!isMounted) {
     return (
       <div className="flex flex-col justify-center h-screen items-center mb-24">
-      <Spinner/>
-    </div>
+        <Spinner />
+      </div>
     );
   }
   return (
@@ -101,56 +197,17 @@ export default function ParticipantParticularSurvey() {
 
       <div className="flex flex-row w-full my-2">
         <Text fontWeight={"bold"} fontSize={"20"}>
-          Taking Survey {2}
+          Taking Survey {surveyId}
         </Text>
       </div>
-
-      {/* <div className="flex flex-row justify-between w-full mt-2 ">
-        <Text fontWeight={"n"} fontSize={"18"}>
-          Total Questions
-        </Text>
-
-        <Button
-          // onClick={() => router.push("/researcher")}
-          // marginTop={"4"}
-          borderRadius={"10"}
-          width={"1/6"}
-          bgColor={"#F5E8C7"}
-          textColor={"black"}
-          fontWeight={"bold"}
-          fontSize={"14px"}
-        >
-          3
-        </Button>
-      </div>
-
-      <div className="flex flex-row justify-between w-full mt-2 ">
-        <Text fontWeight={"n"} fontSize={"18"}>
-          Potential Earnings
-        </Text>
-
-        <Button
-          // onClick={() => router.push("/researcher")}
-          // marginTop={"4"}
-          borderRadius={"10"}
-          width={"1/6"}
-          bgColor={"#F5E8C7"}
-          textColor={"black"}
-          fontWeight={"bold"}
-          fontSize={"14px"}
-        >
-          4 cUSD
-        </Button>
-      </div> */}
-
       <Divider className="mt-1" />
 
       <Text fontWeight={"bold"} fontSize={"18"} my={2}>
         Questions
       </Text>
 
-      {surveys.map((survey) => (
-        <>
+      {allQuestionsOfSurvey.map((question) => (
+        <div key={question.id}>
           <div className="flex flex-row justify-between w-full mb-4 mt-2">
             <div className="flex flex-col left-10 ">
               <Text fontSize={"14px"}>Question 1:</Text>
@@ -159,14 +216,19 @@ export default function ParticipantParticularSurvey() {
 
           <div className="flex flex-row justify-between w-full mb-2">
             <Text fontWeight={"n"} fontStyle={"italic"} fontSize={"16px"}>
-              Lorem ipsum dolor sit amet
+              {question.sentence}
             </Text>
           </div>
 
           <div className="flex flex-row justify-between w-full my-2">
             {/* <Avatar name="Dan Abrahmov" color={"black"} bgColor={"#F5E8C7"} /> */}
-
-            <RadioGroup>
+            <RadioGroup
+              onChange={(value) => {
+                answerToQuestions[allQuestionsOfSurvey.indexOf(question)] =
+                  value;
+              }}
+              value={answerToQuestions[allQuestionsOfSurvey.indexOf(question)]}
+            >
               <Stack direction="row">
                 <Radio value={"true"} colorScheme={"blue"}>
                   <Text fontWeight={"n"} fontSize={"14px"}>
@@ -183,19 +245,19 @@ export default function ParticipantParticularSurvey() {
           </div>
 
           <Divider />
-        </>
+        </div>
       ))}
 
       <Button
         // onClick={createResearcherAccount}
 
-        onClick={() => router.push("/researcher/become-one/success")}
-        // isLoading={creatingResearcher}
+        onClick={onClickComplete}
+        isLoading={isCompleting}
         mb={24}
         bottom={0}
         position={"absolute"}
-        // marginTop={"4"}
-        loadingText="Creating your researcher account"
+        // isDisabled={getAnswerValues()}
+        loadingText="Participating and earning"
         borderRadius={"10"}
         width={"full"}
         bgColor={"#363062"}
