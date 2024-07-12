@@ -29,7 +29,7 @@ export const payForFunding = async (
                 address: cUSDAlfajoresContractAddress,
                 abi: cUSDAlfajoresContractABI,
                 functionName: "transfer",
-                args: [canvassingWalletAddress, _amountOfFundingOfSurveyInWei],
+                args: [canvassingContractAddress, _amountOfFundingOfSurveyInWei],
             });
 
             const payForFundingTxnReceipt =

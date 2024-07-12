@@ -20,7 +20,7 @@ export const getQuestionsOfSurvey = async (
       const fetchedQuestionsOfSurvey = (await publicClient.readContract({
         address: canvassingContractAddress,
         abi: canvassingContractABI,
-        functionName: "questionsOfSurvey",
+        functionName: "getQuestionsOfSurvey",
         args: [_surveyId],
       })) as Array<any>;
 

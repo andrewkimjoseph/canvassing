@@ -1,47 +1,49 @@
-import { Researcher } from "@/entities/Researcher";
+import { Survey } from "@/entities/Survey";
 import { canvassingContractABI } from "@/utils/abis/canvassingContractABI";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
-import { createPublicClient, createWalletClient, custom, http } from "viem";
+import { createPublicClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
 export const getSurveyById = async (
   _signerAddress: `0x${string}` | undefined,
-  { _walletAddress }: GetResearcherByWalletAddress
-): Promise<Researcher | null> => {
-  let researcher: Researcher | null = null;
+  { _surveyId }: GetSurveyByIdProps
+): Promise<Survey | null> => {
+  let survey: Survey | null = null;
   if (window.ethereum) {
     const publicClient = createPublicClient({
       chain: celoAlfajores,
       transport: custom(window.ethereum),
     });
     try {
-      const fetchedResearcher = await publicClient.readContract({
+      const fetchedSurvey = (await publicClient.readContract({
         address: canvassingContractAddress,
         abi: canvassingContractABI,
-        functionName: "getResearcherByWalletAddress",
-        args: [_walletAddress],
-      }) as any;
+        functionName: "getSurveyById",
+        args: [_surveyId],
+      })) as any;
 
-      researcher = {
-        id: Number(fetchedResearcher["id"]),
-        walletAddress: fetchedResearcher["walletAddress"],
-        industry: fetchedResearcher["industry"],
-        numberOfEmployees: fetchedResearcher["numberOfEmployees"],
-        yearsInOperation: fetchedResearcher["yearsInOperation"],
-        isParticipant: fetchedResearcher["isParticipant"],
-        isVerified: fetchedResearcher["isVerified"],
-        isBlank: fetchedResearcher["isBlank"]
+      survey = {
+        id: Number(fetchedSurvey["id"]),
+        creatingResearcherWalletAddress:
+          fetchedSurvey["attendingUserWalletAddress"],
+        topic: fetchedSurvey["topic"],
+        numberOfQuestions: Number(fetchedSurvey["numberOfQuestions"]),
+        targetNumberOfParticipants: Number(
+          fetchedSurvey["targetNumberOfParticipants"]
+        ),
+        amountFundedInWei: Number(fetchedSurvey["amountFundedInWei"]),
+        isBlank: fetchedSurvey["isBlank"],
       };
-      
-      return researcher;
+
+      return survey;
     } catch (err) {
       console.info(err);
-      return researcher;
+      return survey;
     }
   }
-  return null;
+  return survey;
 };
 
-export type GetResearcherByWalletAddress = {
-  _walletAddress: `0x${string}`;
+export type GetSurveyByIdProps = {
+  _surveyId: number;
 };

@@ -57,5 +57,5 @@ export const participateInSurvey = async (
 export type ParticipateInSurveyProps = {
   _surveyId: number;
   _participantWalletAddress: `0x${string}`;
-  _answerValues: string[];
+  _answerValues: boolean[];
 };
