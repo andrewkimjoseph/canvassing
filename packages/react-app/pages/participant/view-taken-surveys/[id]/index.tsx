@@ -124,7 +124,7 @@ export default function ParticipantParticularTakenSurvey() {
     getAllSurveysFn();
     fetchAllEarningsMadeByParticipant();
     getAmountEarnedByUserForSurvey();
-  }, []);
+  }, [allEarningsMadeByParticipant]);
 
   useEffect(() => {
     if (isConnected && address) {

@@ -68,8 +68,8 @@ export default function ParticipantParticularSurvey() {
     const answerValues: boolean[] = [];
   
     for (const [answerId, question] of allQuestionsOfSurvey.entries()) {
-      if (answerToQuestion.hasOwnProperty(answerId)) {
-        answerValues.push(answerToQuestion[answerId] === "true");
+      if (answerToQuestion.hasOwnProperty(question.id)) {
+        answerValues.push(answerToQuestion[question.id] === "true");
       }
     }
   
@@ -152,6 +152,9 @@ export default function ParticipantParticularSurvey() {
     }
   };
 
+  useEffect(() => {
+    console.log(answerToQuestion);
+  }, [answerToQuestion]);
   useEffect(() => {
 
     const fetchQuestionsOfSurvey = async () => {
