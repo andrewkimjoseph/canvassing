@@ -6,7 +6,6 @@ import { celoAlfajores } from "viem/chains";
 
 export const getAllSurveys = async (
   _signerAddress: `0x${string}` | undefined,
-  { _researcherWalletAddress }: GetSurveysCreatedByResearcher
 ): Promise<Survey[]> => {
   let allSurveys: Survey[] = [];
   if (window.ethereum) {
@@ -58,8 +57,4 @@ export const getAllSurveys = async (
     }
   }
   return allSurveys;
-};
-
-export type GetSurveysCreatedByResearcher = {
-  _researcherWalletAddress: `0x${string}`;
 };

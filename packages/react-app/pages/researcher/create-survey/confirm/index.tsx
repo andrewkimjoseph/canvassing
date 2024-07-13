@@ -15,6 +15,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -22,6 +23,12 @@ import {
 } from "@chakra-ui/react";
 import router, { useRouter } from "next/router";
 import { createResearcher } from "@/services/createResearcher";
+import { getAmountOfFundingOfSurvey } from "@/services/getAmountOfFundingOfSurveyInWei";
+import { parseAmountInWeiToEther } from "@/services/parseWeiAmount";
+import { payForFunding } from "@/services/payForFunding";
+import { createSurvey } from "@/services/createSurvey";
+import { createFunding } from "@/services/createFunding";
+import { getIdOfLatestSurveyCreatedByResearcher } from "@/services/getIdOfLatestSurveyCreatedByResearcher";
 
 export default function ResearcherCreateSurveyConfirm() {
   const router = useRouter();
@@ -39,7 +46,151 @@ export default function ResearcherCreateSurveyConfirm() {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [creatingResearcher, setIsCreatingResearch] = useState(false);
+  const [isFundingAndCreatingSurvey, setIsFundingAndCreatingSurvey] =
+    useState(false);
+
+  const [amountOfFundingOfSurvey, setAmountOfFundingOfSurvey] = useState(0);
+
+  const [questions, setQuestions] = useState<string[]>([]);
+
+  const getTotalNumberOfQuestions = (): number => {
+    let totalNumberOfQuestions: number = 0;
+
+    if (Number(questionOne?.length) > 0) {
+      totalNumberOfQuestions += 1;
+    }
+
+    if (Number(questionTwo?.length) > 0) {
+      totalNumberOfQuestions += 1;
+    }
+
+    if (Number(questionThree?.length) > 0) {
+      totalNumberOfQuestions += 1;
+    }
+
+    return totalNumberOfQuestions;
+  };
+
+  const getTargetNumberOfParticipants = (): number => {
+    return Number(targetNumberOfParticipants);
+  };
+
+  const onClickFundAndPublishSurvey = async () => {
+    setIsFundingAndCreatingSurvey(true);
+    // 1. Fund survey
+
+    const surveyIsFunded = await payForFunding(address, {
+      _amountOfFundingOfSurveyInWei: amountOfFundingOfSurvey,
+    });
+
+    if (surveyIsFunded) {
+      // 2. Create survey
+      const surveyIsCreated = await createSurvey(address, {
+        _researcherWalletAddress: address as `0x${string}`,
+        _topic: String(topic),
+        _numberOfQuestions: getTotalNumberOfQuestions(),
+        _amountFundedForSurvey: parseAmountInWeiToEther(
+          amountOfFundingOfSurvey
+        ),
+        _targetNumberOfParticipants: getTargetNumberOfParticipants(),
+        _questionSentences: questions,
+      });
+
+      if (surveyIsCreated) {
+        // Get the survey Id
+        const surveyId = await getIdOfLatestSurveyCreatedByResearcher(address, {
+          _creatingResearcherWalletAddress: address as `0x${string}`,
+        });
+
+        const fundingIsCreated = await createFunding(address, {
+          _numberOfQuestions: getTotalNumberOfQuestions(),
+          _targetNumberOfParticipants: getTargetNumberOfParticipants(),
+          _surveyId: surveyId,
+          _researcherWalletAddress: address as `0x${string}`,
+        });
+
+        if (fundingIsCreated) {
+          toast({
+            description: "Survey funded and created successfully.",
+            status: "success",
+            duration: 4000,
+            isClosable: true,
+            position: "top",
+          });
+
+          await router.replace("/researcher");
+        } else {
+          toast({
+            description: "Survey funding creation failed.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+            position: "top",
+          });
+        }
+      } else {
+        toast({
+          description: "Survey creation failed.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+          position: "top",
+        });
+        setIsFundingAndCreatingSurvey(false);
+      }
+    } else {
+      toast({
+        description: "Survey funding failed.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+        position: "top",
+      });
+      setIsFundingAndCreatingSurvey(false);
+    }
+
+    // 2. Create survey
+    // 3. Create funding
+  };
+
+  useEffect(() => {
+    const getAmountOfFundingOfSurveyFn = async () => {
+      console.log(getTotalNumberOfQuestions());
+      console.log(getTargetNumberOfParticipants());
+
+      const fetchedAmountOfFundingOfSurvey = await getAmountOfFundingOfSurvey(
+        address,
+        {
+          _numberOfQuestions: getTotalNumberOfQuestions(),
+          _targetNumberOfParticipants: getTargetNumberOfParticipants(),
+        }
+      );
+      setAmountOfFundingOfSurvey(fetchedAmountOfFundingOfSurvey);
+
+      return fetchedAmountOfFundingOfSurvey;
+    };
+
+    const setQuestionsOfSurvey = async () => {
+      const runningQuestions: string[] = [];
+
+      if (Number(questionOne?.length) > 0) {
+        runningQuestions.push(String(questionOne));
+      }
+
+      if (Number(questionTwo?.length) > 0) {
+        runningQuestions.push(String(questionTwo));
+      }
+
+      if (Number(questionThree?.length) > 0) {
+        runningQuestions.push(String(questionThree));
+      }
+
+      setQuestions(runningQuestions);
+    };
+
+    setQuestionsOfSurvey();
+    getAmountOfFundingOfSurveyFn();
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
@@ -52,7 +203,11 @@ export default function ResearcherCreateSurveyConfirm() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -89,7 +244,6 @@ export default function ResearcherCreateSurveyConfirm() {
             focusBorderColor="#363062"
             bgColor={"#C0D6E8"}
             value={topic}
-
           />
         </Box>
 
@@ -106,7 +260,6 @@ export default function ResearcherCreateSurveyConfirm() {
             focusBorderColor="#363062"
             bgColor={"#C0D6E8"}
             value={targetNumberOfParticipants}
-
           />
 
           {/* <Input
@@ -128,7 +281,7 @@ export default function ResearcherCreateSurveyConfirm() {
             disabled={true}
             borderColor={"#C0D6E8"}
             bgColor={"#C0D6E8"}
-            value={questionOne}
+            value={!!questionOne ? questionOne : "Not given"}
           />
         </Box>
         <Box className="flex flex-col justify-between w-full mt-2 ">
@@ -142,7 +295,7 @@ export default function ResearcherCreateSurveyConfirm() {
             bgColor={"#C0D6E8"}
             disabled={true}
             borderColor={"#C0D6E8"}
-            value={questionTwo}
+            value={!!questionTwo ? questionTwo : "Not given"}
           />
         </Box>
         <Box className="flex flex-col justify-between w-full mt-2 ">
@@ -156,55 +309,36 @@ export default function ResearcherCreateSurveyConfirm() {
             disabled={true}
             borderColor={"#C0D6E8"}
             bgColor={"#C0D6E8"}
-            value={questionThree}
+            value={!!questionThree ? questionThree : "Not given"}
+          />
+        </Box>
+
+        <Box className="flex flex-col justify-between w-full mt-2 ">
+          <Text fontSize={"12"} mb={1}>
+            Amount to Fund:
+          </Text>
+          <Input
+            variant="outline"
+            placeholder="e.g. DeFi is a challenge space"
+            focusBorderColor="#363062"
+            disabled={true}
+            color={"white"}
+            borderColor={"#C0D6E8"}
+            bgColor={"#363062"}
+            value={`${parseAmountInWeiToEther(amountOfFundingOfSurvey)} cUSD`}
           />
         </Box>
       </Stack>
 
-      {/* <Button onClick={onOpen}>Open Modal</Button> */}
-
-      {/* <Modal
-        blockScrollOnMount={false}
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        
-      >
-        <ModalOverlay />
-        <ModalContent mx={16} borderRadius={10}>
-          <ModalHeader>Modal Title</ModalHeader>
-          {/* <ModalCloseButton /> */}
-      {/* <ModalBody>
-            <Text fontWeight="bold" mb="1rem">
-              You can scroll the content behind the modal
-            </Text>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              bgColor={"black"}
-              color={"white"}
-              onClick={onClose}
-              width={"full"}
-              borderRadius={10}
-            >
-              Close
-            </Button>
-            {/* <Button variant='ghost'>Secondary Action</Button> */}
-      {/* </ModalFooter>
-        </ModalContent>
-      </Modal> */}
-
       <Button
-        // onClick={createResearcherAccount}
-
-        onClick={() => router.push("/researcher/become-one/success")}
-        isLoading={creatingResearcher}
+        onClick={onClickFundAndPublishSurvey}
+        isLoading={isFundingAndCreatingSurvey}
         mb={24}
         bottom={0}
         position={"absolute"}
         // marginTop={"4"}
-        loadingText="Funding and publishing survey"
+        isDisabled={getTotalNumberOfQuestions() === 0}
+        loadingText="Funding and creating survey"
         borderRadius={"10"}
         width={"full"}
         bgColor={"#363062"}
@@ -214,7 +348,7 @@ export default function ResearcherCreateSurveyConfirm() {
           textColor: "white",
         }}
       >
-        Fund and publish your survey
+        Fund and create your survey
       </Button>
     </div>
   );

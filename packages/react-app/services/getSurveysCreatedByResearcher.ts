@@ -62,5 +62,5 @@ export const getSurveysCreatedByResearcher = async (
 };
 
 export type GetSurveysCreatedByResearcher = {
-  _researcherWalletAddress: `0x${string}`;
+  _researcherWalletAddress: `0x${string}` | undefined;
 };

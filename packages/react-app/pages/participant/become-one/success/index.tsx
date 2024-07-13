@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { Button, Image, Text } from "@chakra-ui/react";
+import { Button, Image, Spinner, Text } from "@chakra-ui/react";
 import { checkIfParticipantExists } from "@/services/checkIfParticipantExists";
 import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 import router from "next/router";
@@ -41,7 +41,11 @@ export default function ParticipantBecomeOneSuccess() {
   }, [address, isConnected]);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+      <Spinner/>
+    </div>
+    );
   }
 
   return (

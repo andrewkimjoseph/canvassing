@@ -9,7 +9,7 @@ import {
 } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createResearcher = async (
+export const verifyResearcher = async (
   _signerAddress: `0x${string}` | undefined,
   {
     _walletAddress

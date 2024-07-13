@@ -18,10 +18,12 @@
         "@rainbow-me/rainbowkit": "2.0.2",
         "@tanstack/react-query": "^5.28.6",
         "@wagmi/connectors": "4.1.18",
+        "chart.js": "^4.4.3",
         "ethers": "^5.7.2",
         "framer-motion": "^11.2.13",
         "next": "^13.4.2",
         "react": "18.2.0",
+        "react-chartjs-2": "^5.2.0",
         "react-dom": "18.2.0",
         "viem": "2.8.18",
         "wagmi": "2.5.12"
