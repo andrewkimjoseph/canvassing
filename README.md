@@ -44,5 +44,8 @@ https://canvassing.stekcit.xyz
 ## Snapshot
 ![1-3](https://github.com/user-attachments/assets/1bcc68b7-8547-4fca-b6d2-ece89854126d)
 
+## Figma Prototype Link
+https://www.figma.com/proto/5iNxVWwnNxBY45oVEhRPFG/Canvassing%3A-Wireframes?t=r3NxAgU2ljf07pIv-1
+
 # License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
