@@ -339,7 +339,8 @@ contract Canvassing {
     function participateInSurvey(
         uint256 _surveyId,
         address _participantWalletAddress,
-        bool[] memory _answerValues
+        bool[] memory _answerValues,
+        uint256[] memory _questionIds
     ) public {
         Participant memory currentParticipant = allParticipants[
             _participantWalletAddress
@@ -358,7 +359,7 @@ contract Canvassing {
             Answer memory newAnswer;
             uint256 newAnswerId = currentAnswerId;
             newAnswer.id = newAnswerId;
-            newAnswer.questionId = answerId;
+            newAnswer.questionId = _questionIds[answerId];
             newAnswer.surveyId = _surveyId;
             newAnswer.participantWalletAddress = _participantWalletAddress;
             newAnswer.value = _answerValues[answerId];
@@ -641,7 +642,7 @@ contract Canvassing {
         return newSurvey.id;
     }
 
-    function getIdsOfLatestSurveysCreatedByResearchers(
+    function getIdOfLatestSurveyCreatedByResearcher(
         address _creatingResearcherWalletAddress
     ) public view returns (uint256) {
         return
@@ -692,4 +693,4 @@ contract Canvassing {
 //  FINAL:          0x96DfF6919687F2103Ce71DDD17BC1B53292d1561
 //  FINAL 2:        0x05cF04DaCC70d128E383ea3c5E75DC1C11A5dcC3
 //  FINAL 3:        0x2323C0180c78149826C9a02ea8A675407C165CdA
-//  ...
+//  FINAL 4:        0xF75F8783760feC7fb724E3Fcb607C60924e2ad49
