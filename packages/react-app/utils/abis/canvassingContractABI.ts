@@ -888,7 +888,7 @@ export const canvassingContractABI =
 				"type": "address"
 			}
 		],
-		"name": "getIdsOfLatestSurveysCreatedByResearchers",
+		"name": "getIdOfLatestSurveyCreatedByResearcher",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -1404,6 +1404,11 @@ export const canvassingContractABI =
 				"internalType": "bool[]",
 				"name": "_answerValues",
 				"type": "bool[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_questionIds",
+				"type": "uint256[]"
 			}
 		],
 		"name": "participateInSurvey",
