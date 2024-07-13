@@ -22,7 +22,7 @@ export const getIdOfLatestSurveyCreatedByResearcher = async (
                 (await publicClient.readContract({
                     address: canvassingContractAddress,
                     abi: canvassingContractABI,
-                    functionName: "getIdsOfLatestSurveysCreatedByResearchers",
+                    functionName: "getIdOfLatestSurveyCreatedByResearcher",
                     args: [_creatingResearcherWalletAddress],
                 })) ?? 0
             );

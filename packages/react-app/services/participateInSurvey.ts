@@ -15,6 +15,7 @@ export const participateInSurvey = async (
     _surveyId,
     _participantWalletAddress,
     _answerValues,
+    _questionIds
   }: ParticipateInSurveyProps
 ): Promise<boolean> => {
   if (window.ethereum) {
@@ -33,7 +34,7 @@ export const participateInSurvey = async (
         address: canvassingContractAddress,
         abi: canvassingContractABI,
         functionName: "participateInSurvey",
-        args: [_surveyId, _participantWalletAddress, _answerValues],
+        args: [_surveyId, _participantWalletAddress, _answerValues, _questionIds],
       });
 
       const participateInSurveyTxnReceipt =
@@ -58,4 +59,5 @@ export type ParticipateInSurveyProps = {
   _surveyId: number;
   _participantWalletAddress: `0x${string}`;
   _answerValues: boolean[];
+  _questionIds: number[]
 };
