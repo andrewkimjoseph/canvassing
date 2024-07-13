@@ -124,7 +124,7 @@ export default function ParticipantParticularTakenSurvey() {
     getAllSurveysFn();
     fetchAllEarningsMadeByParticipant();
     getAmountEarnedByUserForSurvey();
-  }, []);
+  }, [allEarningsMadeByParticipant]);
 
   useEffect(() => {
     if (isConnected && address) {
@@ -192,7 +192,7 @@ export default function ParticipantParticularTakenSurvey() {
                 {question.sentence}
               </Text>
               <Button
-                onClick={() => router.push("/participant/view-taken-surveys/1")}
+                // onClick={() => router.push("/participant/view-taken-surveys/1")}
                 // marginTop={"4"}
                 disabled={true}
                 borderRadius={"10"}

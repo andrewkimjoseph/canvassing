@@ -40,29 +40,6 @@ export default function ParticipantTakenSurveys() {
     useState<Survey[]>([]);
 
   useEffect(() => {
-    const getAllSurveysTakenByParticipant = async () => {
-      const fetchedSurveys: Survey[] = [];
-
-      const allEarnings = await getAllEarningsMadeByParticipant(address, {
-        _walletAddress: address as `0x${string}`
-      })
-      for (let earningId = 0; earningId < allSurveys.length; earningId++) {
-        const earning = allEarnings[earningId];
-
-        fetchedSurveys.push(
-          (await getSurveyById(address, {
-            _surveyId: earning.surveyId,
-          })) as Survey
-        );
-      }
-
-      setAllSurveysTakenByParticipant(fetchedSurveys);
-    };
-
-    getAllSurveysTakenByParticipant();
-  }, [allSurveys, allEarningsMadeByParticipant]);
-  
-  useEffect(() => {
     setIsMounted(true);
   }, []);
 
@@ -92,6 +69,34 @@ export default function ParticipantTakenSurveys() {
     fetchParticipantByWalletAddress();
     fetchAllEarningsMadeByParticipant();
   }, [allEarningsMadeByParticipant, allSurveys]);
+
+
+
+  useEffect(() => {
+    const getAllSurveysTakenByParticipant = async () => {
+      const fetchedSurveys: Survey[] = [];
+
+      const allEarnings = await getAllEarningsMadeByParticipant(address, {
+        _walletAddress: address as `0x${string}`,
+      });
+
+      for (let earningId = 0; earningId < allSurveys.length; earningId++) {
+        const earning = allEarnings[earningId];
+
+        if (earning && typeof earning.surveyId !== 'undefined') {
+          const survey = await getSurveyById(address, {
+            _surveyId: earning.surveyId,
+          });
+
+          fetchedSurveys.push(survey!);
+        }
+      }
+
+      setAllSurveysTakenByParticipant(fetchedSurveys);
+    };
+
+    getAllSurveysTakenByParticipant();
+  }, [allSurveys]);
 
   useEffect(() => {
     if (isConnected && address) {

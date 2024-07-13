@@ -37,7 +37,7 @@ import { checkIfResearcherExists } from "@/services/checkIfResearcherExists";
 export default function CanvassingNavbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [userAddress, setUserAddress] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
 
   const [participantExists, setParticipantExists] = useState(false);
@@ -74,9 +74,9 @@ export default function CanvassingNavbar() {
     }
   }, []);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
   useEffect(() => {
     if (isConnected && address) {
@@ -103,9 +103,9 @@ export default function CanvassingNavbar() {
     checkIfResearcherExistsAndSet();
   }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+  // if (!isMounted) {
+  //   return null;
+  // }
 
   return (
     <>
