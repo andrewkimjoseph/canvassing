@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CanvassingNavbar from "@/components/navbar";
 import ThemeProvider from "@/utils/providers/themeProviders";
 import { fonts } from "@/fonts/fonts";
+import Layout from "@/components/layout";
 
 const connectors = connectorsForWallets(
   [
@@ -61,9 +62,9 @@ function App({ Component, pageProps }: AppProps) {
                 overlayBlur: "small",
               })}
             >
-              <CanvassingNavbar />
-
-              <Component  {...pageProps} />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>
