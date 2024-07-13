@@ -6,9 +6,11 @@
 </p>
 
 # About Canvassing
-...
+![Solution](https://github.com/user-attachments/assets/8158673d-b828-4678-a15f-f575db68dcca)
+
 # Current Features
-...
+![Features](https://github.com/user-attachments/assets/b5a37091-e67c-494c-b53e-f66ca38197a5)
+
 
 # How to use Canvassing within MiniPay
 1. Launch MiniPay from Opera Mini.
@@ -18,8 +20,8 @@
 5. Enter the URL as https://canvassing.stekcit.xyz
 6. Tap `Go`, and find your way through the app.
 
-### Or watch a video demo of the product here: 
-...
+### Or watch a demo video of the product here: 
+https://youtu.be/qRVr6XKQUXE
 
 # Technologies Used
 1. Front-end: `Next.js`
@@ -28,13 +30,13 @@
 
 # Important
 ## Pitch Deck
-...
+https://www.canva.com/design/DAGJOwnQJIw/m7KpvBHU1I6dC3GiRXk-xw/edit
 
 ## Pitch Deck Video
-...
+https://youtu.be/2RxoXKFBKjE
 
-## Project Demo Video
-...
+## Product Demo Video
+https://youtu.be/qRVr6XKQUXE
 
 ## Project Demo Link
 https://canvassing.stekcit.xyz
