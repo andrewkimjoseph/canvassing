@@ -41,8 +41,8 @@ https://youtu.be/qRVr6XKQUXE
 ## Project Demo Link
 https://canvassing.stekcit.xyz
 
-## Snapshots
-...
+## Snapshot
+![1-3](https://github.com/user-attachments/assets/1bcc68b7-8547-4fca-b6d2-ece89854126d)
 
 # License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
