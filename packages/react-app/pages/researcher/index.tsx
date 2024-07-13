@@ -317,7 +317,7 @@ export default function ResearcherHome() {
       )}
 
       {allSurveysCreatedByResearcher.map((survey) => (
-        <>
+        <div key={survey.id}>
           <div
             className="flex flex-row justify-between w-full my-4"
             key={survey.id}
@@ -338,7 +338,7 @@ export default function ResearcherHome() {
             </div>
 
             <Button
-              onClick={() => router.push("/researcher/created-surveys/1")}
+              onClick={() => router.push(`/researcher/created-surveys/${survey.id}`)}
               // marginTop={"4"}
               borderRadius={"10"}
               width={"1/6"}
@@ -355,7 +355,7 @@ export default function ResearcherHome() {
 
           <Divider />
 
-        </>
+        </div>
       ))}
     </div>
   );

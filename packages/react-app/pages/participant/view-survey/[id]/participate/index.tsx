@@ -52,37 +52,37 @@ export default function ParticipantParticularSurvey() {
     []
   );
 
-  const [survey, setSurvey] = useState<Survey | null>(null);
+
+  const [answerToQuestion, setAnswerToQuestion] = useState<{ [key: number]: string }>({});;
 
   const [isCompleting, setIsCompleting] = useState(false);
 
-
-
-  let answerToQuestions: { [key: number]: string } = {};
 
   const router = useRouter();
   const { id } = router.query;
 
   const surveyId: number = Number(id);
 
-  const getAnswerValues = async () => {
-    let answerValues: boolean[] = [];
 
-    for (let answerId = 0; answerId < allQuestionsOfSurvey.length; answerId++) {
-      if (answerToQuestions[answerId]) {
-        answerValues.push(
-          answerToQuestions[answerId] === "true" ? true : false
-        );
+  const getAnswerValues = async (): Promise<boolean[]> => {
+    const answerValues: boolean[] = [];
+  
+    for (const [answerId, question] of allQuestionsOfSurvey.entries()) {
+      if (answerToQuestion.hasOwnProperty(answerId)) {
+        answerValues.push(answerToQuestion[answerId] === "true");
       }
     }
-
+  
     return answerValues;
   };
+
 
   const onClickComplete = async () => {
     setIsCompleting(true);
 
-    if ((await getAnswerValues()).length === 0) {
+    const answerValues = await getAnswerValues();
+
+    if (answerValues.length === 0) {
       toast({
         description: "Answer at least one question",
         status: "info",
@@ -95,7 +95,7 @@ export default function ParticipantParticularSurvey() {
       return;
     }
 
-    if ((await getAnswerValues()).length < allQuestionsOfSurvey.length) {
+    if (answerValues.length < allQuestionsOfSurvey.length) {
       toast({
         description: "Answer all questions",
         status: "info",
@@ -115,6 +115,7 @@ export default function ParticipantParticularSurvey() {
         _surveyId: surveyId,
         _participantWalletAddress: address as `0x${string}`,
         _answerValues: await getAnswerValues(),
+        _questionIds: allQuestionsOfSurvey.map((question) => question.id),
       }
     );
 
@@ -152,13 +153,6 @@ export default function ParticipantParticularSurvey() {
   };
 
   useEffect(() => {
-    const fetchCurrentSurvey = async () => {
-      const fetchedSurvey = await getSurveyById(address, {
-        _surveyId: surveyId,
-      });
-
-      setSurvey(fetchedSurvey);
-    };
 
     const fetchQuestionsOfSurvey = async () => {
       const fetchedQuestions = await getQuestionsOfSurvey(address, {
@@ -168,9 +162,16 @@ export default function ParticipantParticularSurvey() {
       setAllQuestionsOfSurvey(fetchedQuestions);
     };
 
-    fetchCurrentSurvey();
     fetchQuestionsOfSurvey();
   }, []);
+
+  const handleAnswerChange = (questionId: number, value: string) => {
+    setAnswerToQuestion(prevState => ({
+      ...prevState,
+      [questionId]: value
+    }));
+  };
+
 
   useEffect(() => {
     if (isConnected && address) {
@@ -210,7 +211,9 @@ export default function ParticipantParticularSurvey() {
         <div key={question.id}>
           <div className="flex flex-row justify-between w-full mb-4 mt-2">
             <div className="flex flex-col left-10 ">
-              <Text fontSize={"14px"}>Question 1:</Text>
+              <Text fontSize={"14px"}>
+                Question {allQuestionsOfSurvey.indexOf(question) + 1}
+              </Text>
             </div>
           </div>
 
@@ -223,20 +226,17 @@ export default function ParticipantParticularSurvey() {
           <div className="flex flex-row justify-between w-full my-2">
             {/* <Avatar name="Dan Abrahmov" color={"black"} bgColor={"#F5E8C7"} /> */}
             <RadioGroup
-              onChange={(value) => {
-                answerToQuestions[allQuestionsOfSurvey.indexOf(question)] =
-                  value;
-              }}
-              value={answerToQuestions[allQuestionsOfSurvey.indexOf(question)]}
+               onChange={(value) => handleAnswerChange(question.id, value)}
+               value={answerToQuestion[question.id] || ''}
             >
               <Stack direction="row">
                 <Radio value={"true"} colorScheme={"blue"}>
-                  <Text fontWeight={"n"} fontSize={"14px"}>
+                  <Text fontWeight={"bold"} fontSize={"14px"}>
                     True
                   </Text>
                 </Radio>
                 <Radio value={"false"}>
-                  <Text fontWeight={"n"} fontSize={"14px"}>
+                  <Text fontWeight={"bold"} fontSize={"14px"}>
                     False
                   </Text>
                 </Radio>
