@@ -893,7 +893,7 @@
 						"type": "address"
 					}
 				],
-				"name": "getIdsOfLatestSurveysCreatedByResearchers",
+				"name": "getIdOfLatestSurveyCreatedByResearcher",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -1409,6 +1409,11 @@
 						"internalType": "bool[]",
 						"name": "_answerValues",
 						"type": "bool[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "_questionIds",
+						"type": "uint256[]"
 					}
 				],
 				"name": "participateInSurvey",
@@ -1544,11 +1549,11 @@
 	},
 	"sources": {
 		"smart-contracts/classroom/main/Canvassing.sol": {
-			"keccak256": "0xb6941a00b8bae5f327dafdcfec1091ef06e862dc17441c4e4143c4fc11a0ef20",
+			"keccak256": "0xcd331d40662f9130f9ead6c6d5dadf33c183efdbc1516cf0d2322a6eefc72b65",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ff1f17f7727e8d8a0893c6c1659df98bc568df83b15e3d02e9115b54b9027082",
-				"dweb:/ipfs/QmWsKoziWZkeWJfeubCzYMafm5NXTGKv4ngF1HzMV44TMa"
+				"bzz-raw://1eec05a64c12db67bbf6cf2796a0c0864fe89932d7fe06af78f10cc181b8b9c9",
+				"dweb:/ipfs/QmeRqEdqKhPoWcfDw5FkDLQ4Bo39PGfLJK68W2t96zf4TQ"
 			]
 		},
 		"smart-contracts/classroom/utils/Interfaces.sol": {

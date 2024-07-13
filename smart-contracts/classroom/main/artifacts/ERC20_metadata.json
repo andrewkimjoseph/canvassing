@@ -423,10 +423,10 @@
 	},
 	"sources": {
 		"smart-contracts/classroom/main/Canvassing_flattened.sol": {
-			"keccak256": "0x6256548217f8ef22e182c5e0b66b75a35fac595d8c2bdb44fc895e85f18fddd9",
+			"keccak256": "0xd6dfa6df9db0798606bae2df84098a06549741174d48c5d1f1c2ddce4a785c9d",
 			"urls": [
-				"bzz-raw://2a61e0a408ad5ed0c2d472f2d7a8fbf3c95a0df4cab950b71ffb0e1373cc595d",
-				"dweb:/ipfs/QmRGBwDPRt9Ko7UgGQM4YPTQ79U1EKhdk2f3jHjzGQ84Yz"
+				"bzz-raw://7d5aad93a8bddee77af1888a85eae759a5d1ca0dbf6ee5f89849845ec8410611",
+				"dweb:/ipfs/QmbUx582SfEikVaLhhksXw2JMwNRVcJwZ1N36c42ZuGjug"
 			]
 		}
 	},

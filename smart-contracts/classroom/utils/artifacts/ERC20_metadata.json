@@ -408,7 +408,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"smart-contracts/playground/utils/Interfaces.sol": "ERC20"
+			"smart-contracts/classroom/utils/Interfaces.sol": "ERC20"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -422,7 +422,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"smart-contracts/playground/utils/Interfaces.sol": {
+		"smart-contracts/classroom/utils/Interfaces.sol": {
 			"keccak256": "0x2031a934343c4a06d7f5a781de69e63bfd38f8a730ff784d4bf8faaf361bfe34",
 			"license": "MIT",
 			"urls": [
