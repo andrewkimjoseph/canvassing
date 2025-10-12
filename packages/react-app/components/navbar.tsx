@@ -101,7 +101,7 @@ export default function CanvassingNavbar() {
 
     checkIfParticipantExistsAndSet();
     checkIfResearcherExistsAndSet();
-  }, []);
+  }, [address]);
 
   // if (!isMounted) {
   //   return null;
