@@ -4,8 +4,8 @@ import {
     custom,
     parseEther,
 } from "viem";
-import { celoAlfajores } from "viem/chains";
-import { cUSDAlfajoresContractAddress } from "@/utils/addresses/cUSDAlfajoresContractAddresses";
+import { celoSepolia } from "viem/chains";
+import { cUSDSepoliaContractAddress } from "@/utils/addresses/cUSDAlfajoresContractAddresses";
 import { cUSDAlfajoresContractABI } from "@/utils/abis/cUSDAlfajoresContractABI";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
 import { canvassingWalletAddress } from "@/utils/addresses/canvassingWalletAddress";
@@ -15,18 +15,18 @@ export const payForFunding = async (
 ): Promise<boolean> => {
     if (window.ethereum) {
         const privateClient = createWalletClient({
-            chain: celoAlfajores,
+            chain: celoSepolia,
             transport: custom(window.ethereum),
         });
         const publicClient = createPublicClient({
-            chain: celoAlfajores,
+            chain: celoSepolia,
             transport: custom(window.ethereum),
         });
         const [address] = await privateClient.getAddresses();
         try {
             const payForFundingTxnHash = await privateClient.writeContract({
                 account: address,
-                address: cUSDAlfajoresContractAddress,
+                address: cUSDSepoliaContractAddress,
                 abi: cUSDAlfajoresContractABI,
                 functionName: "transfer",
                 args: [canvassingContractAddress, _amountOfFundingOfSurveyInWei],

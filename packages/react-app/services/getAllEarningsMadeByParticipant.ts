@@ -2,7 +2,7 @@ import { Earning } from "@/entities/Earning";
 import { canvassingContractABI } from "@/utils/abis/canvassingContractABI";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { celoSepolia } from "viem/chains";
 
 export const getAllEarningsMadeByParticipant = async (
   _signerAddress: `0x${string}` | undefined,
@@ -11,7 +11,7 @@ export const getAllEarningsMadeByParticipant = async (
   let allEarningsMadeByParticipant: Earning[] = [];
   if (window.ethereum) {
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: celoSepolia,
       transport: custom(window.ethereum),
     });
     try {

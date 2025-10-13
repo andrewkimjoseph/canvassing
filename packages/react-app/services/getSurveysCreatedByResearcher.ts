@@ -2,7 +2,7 @@ import { Survey } from "@/entities/Survey";
 import { canvassingContractABI } from "@/utils/abis/canvassingContractABI";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { celoSepolia } from "viem/chains";
 
 export const getSurveysCreatedByResearcher = async (
   _signerAddress: `0x${string}` | undefined,
@@ -11,7 +11,7 @@ export const getSurveysCreatedByResearcher = async (
   let surveysCreatedByResearcher: Survey[] = [];
   if (window.ethereum) {
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: celoSepolia,
       transport: custom(window.ethereum),
     });
     try {

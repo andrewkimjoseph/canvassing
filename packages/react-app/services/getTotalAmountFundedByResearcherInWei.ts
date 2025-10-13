@@ -1,5 +1,5 @@
 import { createPublicClient, createWalletClient, custom, http } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { celoSepolia } from "viem/chains";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
 import { canvassingContractABI } from "@/utils/abis/canvassingContractABI";
 
@@ -14,7 +14,7 @@ export const getTotalAmountFundedByResearcherInWei = async (
     if (window.ethereum) {
         try {
             const publicClient = createPublicClient({
-                chain: celoAlfajores,
+                chain: celoSepolia,
                 transport: custom(window.ethereum),
             });
             totalAmountFundedByResearcherInWei = Number(

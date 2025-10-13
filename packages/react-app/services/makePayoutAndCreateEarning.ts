@@ -7,7 +7,7 @@ import {
   http,
   parseTransaction,
 } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { celoSepolia } from "viem/chains";
 
 export const makePayoutAndCreateEarning = async (
   _signerAddress: `0x${string}` | undefined,
@@ -18,11 +18,11 @@ export const makePayoutAndCreateEarning = async (
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
-      chain: celoAlfajores,
+      chain: celoSepolia,
       transport: custom(window.ethereum),
     });
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: celoSepolia,
       transport: custom(window.ethereum),
     });
     const [address] = await privateClient.getAddresses();

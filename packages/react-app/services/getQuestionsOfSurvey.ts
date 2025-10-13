@@ -4,7 +4,7 @@ import { Question } from "@/entities/Question";
 import { canvassingContractABI } from "@/utils/abis/canvassingContractABI";
 import { canvassingContractAddress } from "@/utils/addresses/canvassingContractAddress";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { celoSepolia } from "viem/chains";
 
 export const getQuestionsOfSurvey = async (
   _signerAddress: `0x${string}` | undefined,
@@ -13,7 +13,7 @@ export const getQuestionsOfSurvey = async (
   let questionsOfSurvey: Question[] = [];
   if (window.ethereum) {
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: celoSepolia,
       transport: custom(window.ethereum),
     });
     try {
