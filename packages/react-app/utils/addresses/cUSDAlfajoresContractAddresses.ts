@@ -1,2 +1,2 @@
-export const cUSDAlfajoresContractAddress: `0x${string}` =
-"0x874069fa1eb16d44d622f2e0ca25eea172369bc1";
+export const cUSDSepoliaContractAddress: `0x${string}` =
+"0xEF4d55D6dE8e8d73232827Cd1e9b2F2dBb45bC80";
